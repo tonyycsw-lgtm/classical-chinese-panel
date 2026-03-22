@@ -1263,7 +1263,7 @@
 
       async loadUnitsIndex() {
         try {
-          const response = await fetch('/classical-chinese-panel/data/units-index.json');
+          const response = await fetch(`/classical-chinese-panel/data/units-index.json?v=${Date.now()}`);
           if (!response.ok) throw new Error('載入失敗');
           unitsIndex = await response.json();
           console.log('✅ 從索引檔案載入單元列表，共', unitsIndex.length, '個單元');
