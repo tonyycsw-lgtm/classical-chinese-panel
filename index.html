@@ -404,89 +404,91 @@
     }
 
     /* ========== Tooltip 樣式（可拖曳 + 延遲隱藏） ========== */
-    .fixed-tooltip {
-      position: fixed;
-      top: 100px;
-      right: 30px;
-      width: 360px;
-      background: #ffffff;
-      border: 1px solid #e9ecef;
-      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
-      border-radius: 20px;
-      font-size: 13px;
-      line-height: 1.7;
-      color: #0f172a;
-      z-index: 1000;
-      transition: opacity 0.2s, box-shadow 0.2s;
-      opacity: 0;
-      pointer-events: none;
-      max-height: calc(100vh - 140px);
-      overflow-y: auto;
-      cursor: auto;
-    }
+   .fixed-tooltip {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  width: 280px;              /* 從 360px 縮小到 280px */
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;       /* 從 20px 縮小到 12px */
+  font-size: 12px;           /* 從 13px 縮小到 12px */
+  line-height: 1.5;
+  color: #0f172a;
+  z-index: 1000;
+  transition: opacity 0.2s, box-shadow 0.2s;
+  opacity: 0;
+  pointer-events: none;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  cursor: auto;
+}
 
     .fixed-tooltip.show {
       opacity: 1;
       pointer-events: auto;
     }
 
-    .fixed-tooltip.dragging {
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
-      transition: none;
-      cursor: grabbing;
-    }
+.fixed-tooltip.dragging {
+  box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.2);
+  transition: none;
+  cursor: grabbing;
+}
 
-    .tooltip-header {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      padding: 12px 16px 8px 16px;
-      border-bottom: 1px solid #e9ecef;
-      cursor: grab;
-      user-select: none;
-      background: #ffffff;
-      border-radius: 20px 20px 0 0;
-    }
+.tooltip-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 8px 12px 6px 12px;    /* 從 12px 16px 8px 16px 縮小 */
+  border-bottom: 1px solid #e9ecef;
+  cursor: grab;
+  user-select: none;
+  background: #ffffff;
+  border-radius: 12px 12px 0 0;
+}
 
     .tooltip-header:active {
       cursor: grabbing;
     }
 
-    .drag-handle {
-      color: #94a3b8;
-      font-size: 14px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
-      cursor: grab;
-    }
+.drag-handle {
+  color: #94a3b8;
+  font-size: 12px;               /* 從 14px 縮小 */
+  padding: 2px 6px;              /* 從 4px 8px 縮小 */
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+  cursor: grab;
+}
 
     .drag-handle:hover {
       background: #f1f5f9;
       color: #4f46e5;
     }
 
-    .tooltip-content {
-      padding: 0 16px 16px 16px;
-      overflow-y: auto;
-      max-height: calc(100vh - 200px);
-    }
+.tooltip-content {
+  padding: 0 12px 12px 12px;    
+  overflow-y: auto;
+  max-height: calc(100vh - 160px);
+}
 
-    .fixed-tooltip .phrase {
-      color: #1e40af;
-      font-weight: 600;
-      margin-bottom: 12px;
-      background-color: #f0f9ff;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border-left: 4px solid #3b82f6;
-    }
+.fixed-tooltip .phrase {
+  color: #1e40af;
+  font-weight: 600;
+  margin-bottom: 8px;           
+  background-color: #f0f9ff;
+  padding: 6px 10px;           
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+  font-size: 12px;
+  line-height: 1.5;
+}
 
-    .fixed-tooltip .vocab-list {
-      margin-top: 8px;
-      border-top: 1px dashed #d1d5db;
-      padding-top: 8px;
-    }
+.fixed-tooltip .vocab-list {
+  margin-top: 6px;               
+  border-top: 1px dashed #d1d5db;
+  padding-top: 6px;            
+}
 
     .fixed-tooltip .vocab-item {
       margin-bottom: 4px;
@@ -499,7 +501,8 @@
 
     .fixed-tooltip .vocab-item strong {
       color: #4f46e5;
-      margin-right: 6px;
+      margin-right: 4px;
+      font-size: 12px;
     }
 
     /* 試用到期提示 */
