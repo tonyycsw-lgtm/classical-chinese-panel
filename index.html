@@ -7,30 +7,491 @@
   <base href="/classical-chinese-panel/">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* ===== 基礎樣式 ===== */
+    /* ===== 原版完整樣式 ===== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: "Segoe UI", "Helvetica Neue", "Arial", "Microsoft YaHei", sans-serif;
     }
-
     body {
-      padding: 20px;
+      padding: 20px 20px 20px 0;
       background: linear-gradient(135deg, #f8fafc 0%, #eef2f7 100%);
       line-height: 1.6;
       color: #2d3748;
       min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
     }
-
     [lang="zh"] {
       letter-spacing: 0.2em;
       line-height: 1.9;
       font-weight: 400;
       word-spacing: 0.1em;
     }
+    .article-title[lang="zh"] {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a365d;
+      margin-bottom: 10px;
+      text-align: center;
+      white-space: pre-line;
+      line-height: 2.0;
+      letter-spacing: 0.25em;
+    }
+    .sentence-slice {
+      line-height: 2.0;
+      letter-spacing: 0.2em;
+      font-weight: 400;
+      transition: background-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 2px 0;
+      white-space: nowrap;
+    }
+    .sentence-slice:hover,
+    .sentence-slice.sentence-selected,
+    .sentence-slice.playing {
+      background-color: rgba(79, 70, 229, 0.12);
+      box-shadow: 0 1px 4px rgba(79, 70, 229, 0.1);
+    }
+    .translation-sentence {
+      transition: background-color 0.2s, box-shadow 0.2s;
+      border-radius: 4px;
+      padding: 2px 0;
+      cursor: default;
+    }
+    .translation-sentence:hover,
+    .translation-sentence.translation-highlight {
+      background-color: rgba(79, 70, 229, 0.12);
+      box-shadow: 0 1px 4px rgba(79, 70, 229, 0.1);
+    }
+    .btn[lang="zh"] {
+      letter-spacing: 0.18em;
+      line-height: 1.6;
+    }
+    .section-title[lang="zh"] {
+      line-height: 2.0;
+      letter-spacing: 0.2em;
+    }
+    .unit-control-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 12px 16px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #e9ecef;
+    }
+    .unit-selector-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .unit-select {
+      padding: 8px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #2d3748;
+      background-color: white;
+      cursor: pointer;
+      min-width: 280px;
+    }
+    .upload-btn {
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+    .main-content {
+      width: calc(100% - 420px);
+      max-width: 210mm;
+      margin-right: 400px;
+      margin-left: 20px;
+    }
+    .a4-container {
+      width: 100%;
+      min-height: 297mm;
+      padding: 20mm;
+      background-color: white;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      overflow: visible;
+    }
+    .article-section {
+      width: 100%;
+    }
+    .article-paragraph-wrapper {
+      border: 1px solid #e2e8f0;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #2d3748;
+      text-align: justify;
+      background-color: #fcfdfe;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .single-paragraph {
+      margin-bottom: 12px;
+    }
 
-    /* 會員資訊列 */
+    /* ========== 改良版 Tooltip 樣式（可拖曳 + 延遲隱藏） ========== */
+    .fixed-tooltip {
+      position: fixed;
+      top: 100px;
+      right: 30px;
+      width: 360px;
+      background: #ffffff;
+      border: 1px solid #e9ecef;
+      box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #0f172a;
+      z-index: 1000;
+      transition: opacity 0.2s, box-shadow 0.2s;
+      opacity: 0;
+      pointer-events: none;
+      max-height: calc(100vh - 140px);
+      overflow-y: auto;
+      cursor: auto;
+    }
+
+    .fixed-tooltip.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .fixed-tooltip.dragging {
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+      transition: none;
+      cursor: grabbing;
+    }
+
+    /* 拖曳把手區域 */
+    .tooltip-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 12px 16px 8px 16px;
+      border-bottom: 1px solid #e9ecef;
+      cursor: grab;
+      user-select: none;
+      background: #ffffff;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .tooltip-header:active {
+      cursor: grabbing;
+    }
+
+    .drag-handle {
+      color: #94a3b8;
+      font-size: 14px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      cursor: grab;
+    }
+
+    .drag-handle:hover {
+      background: #f1f5f9;
+      color: #4f46e5;
+    }
+
+    .drag-handle i {
+      font-size: 12px;
+    }
+
+    /* 內容區域 */
+    .tooltip-content {
+      padding: 0 16px 16px 16px;
+      overflow-y: auto;
+      max-height: calc(100vh - 200px);
+    }
+
+    .fixed-tooltip .phrase {
+      color: #1e40af;
+      font-weight: 600;
+      margin-bottom: 12px;
+      background-color: #f0f9ff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .fixed-tooltip .vocab-list {
+      margin-top: 8px;
+      border-top: 1px dashed #d1d5db;
+      padding-top: 8px;
+    }
+
+    .fixed-tooltip .vocab-item {
+      margin-bottom: 6px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .fixed-tooltip .vocab-item strong {
+      color: #4f46e5;
+      margin-right: 6px;
+    }
+
+    .footnotes-section {
+      margin: 16px 0 24px;
+      padding: 12px 16px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      border-left: 4px solid #4f46e5;
+      font-size: 12px;
+    }
+    .footnotes-section h5 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e40af;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footnotes-section ol {
+      padding-left: 20px;
+      margin: 0;
+      list-style-type: decimal;
+    }
+    .footnotes-section li {
+      margin-bottom: 6px;
+      color: #2d3748;
+      line-height: 1.6;
+    }
+    .footnotes-section li strong {
+      color: #4f46e5;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .footnotes-section li .context {
+      display: inline;
+      font-size: 11px;
+      color: #6b7280;
+      margin-left: 6px;
+      font-style: italic;
+      border-left: none;
+      padding-left: 0;
+    }
+    .paragraph-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 8px;
+    }
+    .btn {
+      border: none;
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.25s;
+      font-weight: 500;
+    }
+    .btn-outline {
+      background: transparent;
+      color: #4f46e5;
+      border: 1.5px solid #c7d2fe;
+    }
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #4f46e5;
+    }
+    .btn-outline.playing {
+      background: #ef4444;
+      color: white;
+      border-color: #ef4444;
+    }
+    .btn-outline.active {
+      background: #4f46e5;
+      color: white;
+      border-color: #4f46e5;
+    }
+    .toggle-button-group {
+      display: inline-flex;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1.5px solid #c7d2fe;
+      background: white;
+    }
+    .toggle-button-group .btn {
+      margin: 0 !important;
+      border-radius: 0;
+      border: none;
+      border-right: 1.5px solid #c7d2fe;
+      background: transparent;
+      color: #4f46e5;
+      padding: 6px 12px;
+      font-size: 11px;
+    }
+    .toggle-button-group .btn:last-child {
+      border-right: none;
+    }
+    .toggle-button-group .btn.active {
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      color: white;
+      border-color: #4f46e5;
+    }
+    .unified-content {
+      margin-top: 12px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .unified-content .translation-content {
+      margin: 0;
+      padding: 16px;
+      background-color: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      color: #1e40af;
+      font-size: 12px;
+      line-height: 1.8;
+      letter-spacing: 0.18em;
+      border-radius: 0 6px 6px 0;
+      display: block;
+    }
+    .unified-content .implication-content {
+      margin: 0;
+      padding: 16px;
+      background-color: #fefce8;
+      border-left: 4px solid #f59e0b;
+      color: #92400e;
+      font-size: 12px;
+      display: none;
+      border-radius: 0 6px 6px 0;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .unified-content .implication-content .section-content {
+      padding-left: 0;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 12px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0 10px 16px;
+      border-left: 4px solid;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8));
+      border-radius: 0 6px 6px 0;
+    }
+    .appreciation-title { border-color: #8b5cf6; color: #6d28d9; }
+    .key-points-title { border-color: #059669; color: #065f46; }
+    .short-answer-title { border-color: #d97706; color: #b45309; }
+    .title-icon {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      background: white;
+    }
+    .interactive-section {
+      margin-top: 20px;
+      margin-bottom: 30px;
+      padding: 18px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+    .appreciation-content, .key-points-content, .short-answer-content {
+      font-size: 13px;
+      line-height: 1.9;
+      color: #2d3748;
+    }
+    .appreciation-section {
+      margin-bottom: 20px;
+    }
+    .appreciation-section h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: #6d28d9;
+      margin-bottom: 8px;
+    }
+    .appreciation-section p {
+      margin-bottom: 12px;
+      padding-left: 12px;
+      border-left: 3px solid #e2e8f0;
+    }
+    .key-points-content .point-item, .short-answer-content .qa-item {
+      margin-bottom: 16px;
+      padding-left: 12px;
+      border-left: 3px solid #e2e8f0;
+    }
+    .key-points-content .point-item strong, .short-answer-content .qa-item strong {
+      color: #4f46e5;
+      font-weight: 600;
+      display: inline-block;
+      min-width: 80px;
+    }
+    .qa-item .question {
+      font-weight: 600;
+      color: #b45309;
+    }
+    .qa-item .answer {
+      margin-top: 4px;
+      color: #2d3748;
+    }
+    .spacer {
+      height: 50px;
+    }
+    .grammar-techniques {
+      margin-top: 8px;
+    }
+    .technique-item {
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #e2e8f0;
+      padding-bottom: 8px;
+    }
+    .technique-item:last-child {
+      border-bottom: none;
+    }
+    .technique-type {
+      font-weight: 700;
+      color: #b45309;
+      display: inline-block;
+      background: #fef3c7;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+    .technique-example {
+      font-style: italic;
+      color: #6b7280;
+      background: #f9fafb;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin: 4px 0;
+      font-size: 11px;
+    }
+    .technique-effect {
+      font-size: 11px;
+      color: #374151;
+    }
+
+    /* 新增 Firebase 相關樣式 */
     .user-info-bar {
       display: flex;
       justify-content: flex-end;
@@ -39,7 +500,6 @@
       margin-bottom: 15px;
       gap: 15px;
     }
-    
     .user-greeting {
       color: #4f46e5;
       font-weight: 500;
@@ -51,20 +511,18 @@
       align-items: center;
       gap: 8px;
       border: 1px solid #e0e7ff;
+      box-shadow: 0 2px 6px rgba(79, 70, 229, 0.08);
     }
-    
     .user-greeting i {
       color: #fbbf24;
       font-size: 16px;
     }
-    
     .user-greeting span {
       max-width: 150px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
     .logout-btn {
       background: transparent;
       border: 1.5px solid #e2e8f0;
@@ -80,283 +538,11 @@
       gap: 6px;
       background: white;
     }
-    
     .logout-btn:hover {
       background: #fee2e2;
       border-color: #ef4444;
       color: #ef4444;
     }
-
-    /* 單元控制列 */
-    .unit-control-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding: 12px 16px;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      border: 1px solid #e9ecef;
-    }
-
-    .unit-selector-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .unit-select {
-      padding: 8px 16px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 6px;
-      font-size: 14px;
-      color: #2d3748;
-      background-color: white;
-      cursor: pointer;
-      min-width: 280px;
-    }
-
-    .upload-wrapper {
-      display: flex;
-      align-items: center;
-    }
-
-    .upload-btn {
-      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      font-size: 13px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* A4 容器 */
-    .a4-container {
-      width: 210mm;
-      min-height: 297mm;
-      margin: 0 auto;
-      padding: 20mm;
-      background-color: white;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-      border-radius: 8px;
-      border: 1px solid #e9ecef;
-    }
-
-    /* 文章區域 */
-    .article-section {
-      width: 100%;
-    }
-
-    .article-title {
-      font-size: 24px;
-      font-weight: 700;
-      color: #1a365d;
-      margin-bottom: 20px;
-      text-align: center;
-      line-height: 2.0;
-      letter-spacing: 0.25em;
-    }
-
-    .article-paragraph-wrapper {
-      border: 1px solid #e2e8f0;
-      padding: 16px;
-      border-radius: 8px;
-      background-color: #fcfdfe;
-    }
-
-    .single-paragraph {
-      margin-bottom: 12px;
-    }
-
-    /* 句子高亮樣式 */
-    .sentence-slice {
-      line-height: 2.0;
-      letter-spacing: 0.2em;
-      transition: background-color 0.2s;
-      cursor: pointer;
-      border-radius: 4px;
-      padding: 2px 0;
-      display: inline;
-    }
-
-    .sentence-slice:hover,
-    .sentence-slice.sentence-selected,
-    .sentence-slice.playing {
-      background-color: rgba(79, 70, 229, 0.12);
-    }
-
-    .translation-sentence {
-      transition: background-color 0.2s;
-      border-radius: 4px;
-      padding: 2px 0;
-      cursor: default;
-    }
-
-    .translation-sentence:hover,
-    .translation-sentence.translation-highlight {
-      background-color: rgba(79, 70, 229, 0.12);
-    }
-
-    /* 段落控制按鈕 */
-    .paragraph-controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-      margin: 12px 0 8px;
-    }
-
-    .btn {
-      border: none;
-      font-size: 11px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      transition: all 0.25s;
-      font-weight: 500;
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: #4f46e5;
-      border: 1.5px solid #c7d2fe;
-    }
-
-    .btn-outline:hover {
-      background: #f1f5f9;
-      border-color: #4f46e5;
-    }
-
-    .btn-outline.playing {
-      background: #ef4444;
-      color: white;
-      border-color: #ef4444;
-    }
-
-    .toggle-button-group {
-      display: inline-flex;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1.5px solid #c7d2fe;
-      background: white;
-    }
-
-    .toggle-button-group .btn {
-      margin: 0;
-      border-radius: 0;
-      border: none;
-      border-right: 1.5px solid #c7d2fe;
-      background: transparent;
-      color: #4f46e5;
-    }
-
-    .toggle-button-group .btn:last-child {
-      border-right: none;
-    }
-
-    .toggle-button-group .btn.active {
-      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-      color: white;
-    }
-
-    /* 翻譯/解讀內容區 */
-    .unified-content {
-      margin-top: 12px;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .unified-content .translation-content {
-      margin: 0;
-      padding: 16px;
-      background-color: #f0f9ff;
-      border-left: 4px solid #3b82f6;
-      color: #1e40af;
-      font-size: 12px;
-      line-height: 1.8;
-      letter-spacing: 0.18em;
-    }
-
-    .unified-content .implication-content {
-      margin: 0;
-      padding: 16px;
-      background-color: #fefce8;
-      border-left: 4px solid #f59e0b;
-      color: #92400e;
-      font-size: 12px;
-      display: none;
-    }
-
-    /* 詞彙區域 */
-    .vocab-section {
-      margin-top: 20px;
-      padding: 16px;
-      background: #f8fafc;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .vocab-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #1e40af;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-
-    .vocab-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .vocab-item {
-      padding: 8px 12px;
-      background: white;
-      border-radius: 6px;
-      border: 1px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .vocab-audio-btn {
-      background: linear-gradient(135deg, #93c5fd 0%, #60a5fa 100%);
-      color: white;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .vocab-audio-btn.playing {
-      background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
-    }
-
-    .vocab-word {
-      font-weight: 700;
-      color: #1e40af;
-      font-size: 14px;
-    }
-
-    .vocab-meaning {
-      color: #4b5563;
-      font-size: 12px;
-      margin-top: 2px;
-    }
-
-    /* 試用到期提示 */
     .trial-expired-notice {
       background-color: #fee2e2;
       border: 1px solid #ef4444;
@@ -364,8 +550,8 @@
       padding: 16px;
       margin-bottom: 20px;
       text-align: center;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
     }
-    
     .trial-expired-notice .message {
       display: flex;
       align-items: center;
@@ -374,8 +560,10 @@
       color: #991b1b;
       font-weight: 500;
     }
-
-    /* 停用帳號頁面 */
+    .trial-expired-notice .message i {
+      font-size: 24px;
+      color: #ef4444;
+    }
     .disabled-account-container {
       max-width: 500px;
       margin: 50px auto;
@@ -385,836 +573,985 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
-
+    .disabled-account-container h2 {
+      color: #1e293b;
+      margin-bottom: 16px;
+    }
+    .disabled-account-container p {
+      color: #64748b;
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
     .loading-indicator {
-      padding: 40px;
+      padding: 24px;
       text-align: center;
       color: #6b7280;
+      font-style: italic;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1.5px dashed #cbd5e0;
     }
-
-    @media screen and (max-width: 1024px) {
-      .a4-container { width: 100%; padding: 15px; }
+    @media screen and (min-width: 1201px) {
+      .fixed-tooltip { display: block; right: 30px; width: 360px; }
+    }
+    @media screen and (min-width: 769px) and (max-width: 1200px) {
+      .fixed-tooltip { display: block; right: 15px; width: 300px; font-size: 12px; top: 80px; }
+      .main-content { width: calc(100% - 340px); margin-right: 330px; }
+    }
+    @media screen and (max-width: 768px) {
+      body { justify-content: center; }
+      .main-content { width: 100%; margin-right: 0; margin-left: 0; }
+      .fixed-tooltip { display: none; }
+      .user-info-bar { flex-direction: column; align-items: flex-end; gap: 8px; }
+      .logout-btn { width: auto; }
     }
   </style>
 </head>
 <body>
-  <div id="app">
-    <!-- 會員資訊列 -->
-    <div class="user-info-bar" id="userInfoBar" style="display: none;">
-      <div class="user-greeting" id="userGreeting">
-        <i class="fas fa-user-circle"></i>
-        <span id="userNameDisplay">會員</span>
-      </div>
-      <button class="logout-btn" id="logoutBtn">
-        <i class="fas fa-sign-out-alt"></i> 登出
-      </button>
+<div class="main-content">
+  <!-- 會員資訊列 -->
+  <div class="user-info-bar" id="userInfoBar" style="display: none;">
+    <div class="user-greeting" id="userGreeting">
+      <i class="fas fa-user-circle"></i>
+      <span id="userNameDisplay">會員</span>
     </div>
+    <button class="logout-btn" id="logoutBtn">
+      <i class="fas fa-sign-out-alt"></i> 登出
+    </button>
+  </div>
 
-    <!-- 試用到期提示 -->
-    <div id="trialExpiredNotice" class="trial-expired-notice" style="display: none;">
-      <div class="message">
-        <i class="fas fa-hourglass-end"></i>
-        <span>⚠️ 您的免費試用期已屆滿，只能閱讀第一篇文章。請聯絡管理員以解鎖全部內容。</span>
-      </div>
-    </div>
-
-    <!-- 單元控制列 -->
-    <div class="unit-control-bar">
-      <div class="unit-selector-wrapper">
-        <label for="unit-select"><i class="fas fa-book-open"></i> 選擇篇章：</label>
-        <select id="unit-select" class="unit-select">
-          <option value="">載入中…</option>
-        </select>
-      </div>
-      <div class="upload-wrapper" id="uploadWrapper" style="display: none;">
-        <label for="unit-upload" class="upload-btn">
-          <i class="fas fa-upload"></i> 上傳單元
-        </label>
-        <input type="file" id="unit-upload" accept="application/json" style="display:none;">
-      </div>
-    </div>
-
-    <!-- 內容容器 -->
-    <div class="a4-container">
-      <div id="content-container">
-        <div class="loading-indicator">
-          <i class="fas fa-spinner fa-spin"></i> 載入中...
-        </div>
-      </div>
+  <!-- 試用到期提示 -->
+  <div id="trialExpiredNotice" class="trial-expired-notice" style="display: none;">
+    <div class="message">
+      <i class="fas fa-hourglass-end"></i>
+      <span>⚠️ 您的免費試用期已屆滿，只能閱讀第一篇文章。請聯絡管理員以解鎖全部內容。</span>
     </div>
   </div>
 
-  <script type="module">
-    // ============================================
-    // Firebase 初始化
-    // ============================================
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
-    import { 
-      getAuth, 
-      onAuthStateChanged, 
-      signOut 
-    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
-    import { 
-      getFirestore, 
-      doc, 
-      setDoc, 
-      getDoc, 
-      updateDoc, 
-      increment 
-    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+  <div class="unit-control-bar">
+    <div class="unit-selector-wrapper">
+      <label for="unit-select"><i class="fas fa-book-open"></i> 選擇篇章：</label>
+      <select id="unit-select" class="unit-select">
+        <option value="">載入索引中…</option>
+      </select>
+    </div>
+    <div class="upload-wrapper" id="uploadWrapper">
+      <label for="unit-upload" class="btn btn-outline upload-btn"><i class="fas fa-upload"></i> 上傳單元</label>
+      <input type="file" id="unit-upload" accept="application/json" style="display:none;">
+    </div>
+  </div>
 
-    // Firebase 專案設定
-  const firebaseConfig = {
-    apiKey: "AIzaSyAWlA_w8kDp3u2s38peh3svIZVyY78ZwX0",
-    authDomain: "classical-chinese-panel.firebaseapp.com",
-    projectId: "classical-chinese-panel",
-    storageBucket: "classical-chinese-panel.firebasestorage.app",
-    messagingSenderId: "310386842914",
-    appId: "1:310386842914:web:9712565f4fee6c900b597b"
+  <div class="a4-container" id="a4-container">
+    <div class="article-section" id="article-section"></div>
+    <h2 class="section-title appreciation-title" lang="zh"><span class="title-icon"><i class="fas fa-feather-alt"></i></span> 文章賞析</h2>
+    <div class="interactive-section" id="appreciation-section">
+      <div class="appreciation-content" id="appreciation-content"></div>
+    </div>
+    <h2 class="section-title key-points-title" lang="zh"><span class="title-icon"><i class="fas fa-star"></i></span> 課文重點</h2>
+    <div class="interactive-section" id="key-points-section">
+      <div class="key-points-content" id="key-points-content"></div>
+    </div>
+    <h2 class="section-title short-answer-title" lang="zh"><span class="title-icon"><i class="fas fa-question-circle"></i></span> 簡答題</h2>
+    <div class="interactive-section" id="short-answer-section">
+      <div class="short-answer-content" id="short-answer-content"></div>
+    </div>
+    <div class="spacer"></div>
+  </div>
+</div>
+
+<!-- Tooltip 元素 -->
+<div id="fixed-tooltip" class="fixed-tooltip">
+  <div class="tooltip-header" id="tooltip-drag-handle">
+    <div class="drag-handle">
+      <i class="fas fa-grip-vertical"></i>
+    </div>
+  </div>
+  <div class="tooltip-content" id="tooltip-content"></div>
+</div>
+
+<!-- 原版核心功能腳本（傳統模式） -->
+<script>
+  let currentUnitData = null;
+  let currentUnitId = null;
+  let unitsIndex = [];
+  let sliceContents = {};
+  window.sliceContents = sliceContents;
+
+  // ========== TTS 控制器 ==========
+  const TTSController = {
+    isSupported() { return 'speechSynthesis' in window; },
+    getCantoneseVoice() {
+      if (!this.isSupported()) return null;
+      const voices = window.speechSynthesis.getVoices();
+      return voices.find(v => v.lang.includes('zh-HK') || v.lang.includes('yue')) || voices.find(v => v.lang.includes('zh'));
+    },
+    speak(text, callback) {
+      if (!this.isSupported()) { if(callback) callback(); return; }
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'zh-HK';
+      utterance.rate = 0.7;
+      const voice = this.getCantoneseVoice();
+      if (voice) utterance.voice = voice;
+      utterance.onend = () => { if(callback) callback(); };
+      utterance.onerror = () => { if(callback) callback(); };
+      window.speechSynthesis.speak(utterance);
+    },
+    stop() { if(this.isSupported()) window.speechSynthesis.cancel(); }
   };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+  // ========== 音頻控制器 ==========
+  const AudioController = {
+    currentAudio: null, 
+    currentButton: null, 
+    currentPlayingSlice: null, 
+    currentPlayingTranslation: null,
+    currentPlaylist: [], 
+    currentPlaylistIndex: -1, 
+    isPlayingParagraph: false, 
+    ttsPlaying: false,
 
-    // ============================================
-    // 全域變數
-    // ============================================
-    let currentUser = null;
-    let currentUserData = null;
-    let isTrialExpired = false;
-    let unitsIndex = [];
-    let currentUnitData = null;
-    let currentUnitId = null;
-
-    const TRIAL_DAYS = 7;
-
-    // ============================================
-    // 試用期檢查
-    // ============================================
-    function checkTrialExpired() {
-      if (!currentUserData) return false;
-      
-      if (currentUserData.premium) {
-        isTrialExpired = false;
-        document.getElementById('trialExpiredNotice').style.display = 'none';
-        return false;
+    resetButton(btn) {
+      if(!btn) return;
+      btn.classList.remove('playing', 'loading');
+      if (btn.classList.contains('paragraph-audio-btn')) {
+        btn.innerHTML = '<i class="fas fa-volume-up"></i> 朗讀';
+      } else if (btn.classList.contains('vocab-audio-btn')) {
+        btn.innerHTML = '<i class="fas fa-volume-up"></i>';
+      } else {
+        btn.innerHTML = '<i class="fas fa-volume-up"></i> 朗讀';
       }
-      
-      if (currentUserData.trialEndAt) {
-        const trialEnd = new Date(currentUserData.trialEndAt);
-        const now = new Date();
-        
-        if (now > trialEnd) {
-          isTrialExpired = true;
-          document.getElementById('trialExpiredNotice').style.display = 'flex';
-          console.log('⚠️ 試用期已屆滿');
-          return true;
-        } else {
-          isTrialExpired = false;
-          document.getElementById('trialExpiredNotice').style.display = 'none';
-          const daysLeft = Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24));
-          console.log(`✅ 試用期剩餘 ${daysLeft} 天`);
-          return false;
-        }
+    },
+
+    stop() {
+      TTSController.stop();
+      if(this.currentAudio) { 
+        this.currentAudio.pause(); 
+        this.currentAudio = null; 
       }
-      
-      isTrialExpired = true;
-      document.getElementById('trialExpiredNotice').style.display = 'flex';
-      return true;
-    }
-
-    // ============================================
-    // 閱讀進度記錄
-    // ============================================
-    let readingTimer = null;
-    let currentUnitIdForProgress = null;
-    let lastRecordedPercent = 0;
-    const PROGRESS_THRESHOLD = 10;
-
-    function calculateReadPercent() {
-      const articleWrapper = document.querySelector('.article-paragraph-wrapper');
-      if (!articleWrapper) return 0;
-      
-      const scrollTop = window.scrollY;
-      const articleHeight = articleWrapper.scrollHeight;
-      const windowHeight = window.innerHeight;
-      
-      let percent = Math.min(
-        Math.floor((scrollTop + windowHeight) / articleHeight * 100),
-        100
-      );
-      return percent;
-    }
-
-    function startReadingSession(unitId) {
-      if (readingTimer) clearInterval(readingTimer);
-      
-      currentUnitIdForProgress = unitId;
-      lastRecordedPercent = 0;
-      
-      readingTimer = setInterval(async () => {
-        if (!auth.currentUser || !currentUnitIdForProgress) return;
-        
-        const percent = calculateReadPercent();
-        
-        if (Math.abs(percent - lastRecordedPercent) >= PROGRESS_THRESHOLD) {
-          try {
-            const userRef = doc(db, 'users', auth.currentUser.uid);
-            await updateDoc(userRef, {
-              [`readingProgress.${currentUnitIdForProgress}`]: percent,
-              lastReadUnit: currentUnitIdForProgress,
-              lastReadAt: new Date().toISOString()
-            });
-            lastRecordedPercent = percent;
-            console.log(`📖 閱讀進度更新: ${currentUnitIdForProgress} = ${percent}%`);
-          } catch (error) {
-            console.error('更新閱讀進度失敗:', error);
-          }
-        }
-      }, 30000);
-    }
-
-    function stopReadingSession() {
-      if (readingTimer) {
-        clearInterval(readingTimer);
-        readingTimer = null;
+      if(this.currentButton) { 
+        this.resetButton(this.currentButton); 
+        this.currentButton = null; 
       }
-      saveFinalProgress();
-      currentUnitIdForProgress = null;
-    }
+      document.querySelectorAll('.sentence-slice.playing').forEach(el => el.classList.remove('playing'));
+      document.querySelectorAll('.translation-sentence.translation-highlight').forEach(el => el.classList.remove('translation-highlight'));
+      this.currentPlayingSlice = null; 
+      this.currentPlayingTranslation = null;
+      this.currentPlaylist = []; 
+      this.currentPlaylistIndex = -1; 
+      this.isPlayingParagraph = false; 
+      this.ttsPlaying = false;
+    },
 
-    async function saveFinalProgress() {
-      if (!auth.currentUser || !currentUnitIdForProgress) return;
-      
-      const finalPercent = calculateReadPercent();
-      
-      if (Math.abs(finalPercent - lastRecordedPercent) >= 1) {
-        try {
-          const userRef = doc(db, 'users', auth.currentUser.uid);
-          await updateDoc(userRef, {
-            [`readingProgress.${currentUnitIdForProgress}`]: finalPercent,
-            lastReadUnit: currentUnitIdForProgress,
-            lastReadAt: new Date().toISOString()
-          });
-          console.log(`📖 最終進度已保存: ${currentUnitIdForProgress} = ${finalPercent}%`);
-        } catch (error) {
-          console.error('保存最終進度失敗:', error);
+    playSlice(sliceEl, audioUrl) {
+      if(this.currentPlayingSlice === sliceEl && (this.currentAudio || this.ttsPlaying)) { 
+        this.stop(); 
+        return; 
+      }
+      this.stop();
+      const sliceText = sliceEl.textContent;
+      sliceEl.classList.add('playing');
+      this.currentPlayingSlice = sliceEl;
+      const paraNum = sliceEl.dataset.para, sliceId = sliceEl.dataset.sliceId;
+      const transContainer = document.getElementById(currentUnitId + '_trans-' + paraNum);
+      if(transContainer) {
+        const targetTrans = transContainer.querySelector('.translation-sentence[data-slice-id="' + sliceId + '"]');
+        if(targetTrans) { 
+          targetTrans.classList.add('translation-highlight'); 
+          this.currentPlayingTranslation = targetTrans; 
         }
       }
-    }
-
-    window.addEventListener('beforeunload', () => {
-      if (readingTimer) {
-        clearInterval(readingTimer);
-        saveFinalProgress();
+      const playNext = () => {
+        sliceEl.classList.remove('playing');
+        if(this.currentPlayingTranslation) this.currentPlayingTranslation.classList.remove('translation-highlight');
+        this.currentPlayingSlice = null; 
+        this.currentAudio = null;
+        if(this.currentButton) this.resetButton(this.currentButton);
+        this.currentButton = null;
+      };
+      if(audioUrl && audioUrl !== '') {
+        const audio = new Audio(audioUrl);
+        audio.onended = playNext;
+        audio.onerror = () => { 
+          this.ttsPlaying = true; 
+          TTSController.speak(sliceText, () => { 
+            this.ttsPlaying = false; 
+            playNext(); 
+          }); 
+        };
+        audio.play().catch(() => { 
+          this.ttsPlaying = true; 
+          TTSController.speak(sliceText, () => { 
+            this.ttsPlaying = false; 
+            playNext(); 
+          }); 
+        });
+        this.currentAudio = audio;
+      } else {
+        this.ttsPlaying = true;
+        TTSController.speak(sliceText, () => { 
+          this.ttsPlaying = false; 
+          playNext(); 
+        });
       }
-    });
+    },
 
-    // ============================================
-    // 登出函數
-    // ============================================
-    async function handleLogout() {
-      try {
-        const btn = document.getElementById('logoutBtn');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 登出中...';
-        btn.disabled = true;
-        
-        if (readingTimer) {
-          clearInterval(readingTimer);
-          await saveFinalProgress();
-        }
-        
-        await signOut(auth);
-        localStorage.clear();
-        
-        setTimeout(() => {
-          window.location.href = '/classical-chinese-panel/login.html';
-        }, 300);
-      } catch (error) {
-        console.error('登出失敗:', error);
-        alert('登出失敗：' + error.message);
-        const btn = document.getElementById('logoutBtn');
-        btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> 登出';
-        btn.disabled = false;
+    playParagraph(paraNum, button) {
+      if(this.currentButton === button && (this.currentAudio || this.ttsPlaying)) { 
+        this.stop(); 
+        return; 
       }
-    }
+      this.stop();
 
-    // ============================================
-    // 單元管理器（簡化版）
-    // ============================================
-    const UnitManager = {
-      async init() {
-        await this.loadUnitsIndex();
-        this.populateUnitSelect();
-        
-        if (isTrialExpired && unitsIndex.length > 0) {
-          const select = document.getElementById('unit-select');
-          select.style.pointerEvents = 'none';
-          select.style.opacity = '0.6';
-          select.title = '試用期已屆滿，只能閱讀第一篇文章';
-          await this.loadAndRenderUnit(unitsIndex[0]);
-          return;
-        }
-        
-        if (unitsIndex.length > 0) {
-          await this.loadAndRenderUnit(unitsIndex[0]);
-        }
-      },
-
-      async loadUnitsIndex() {
-  try {
-    const response = await fetch('/classical-chinese-panel/data/units-index.json');
-    if (!response.ok) throw new Error('載入失敗');
-    unitsIndex = await response.json();
-    console.log('✅ 從索引檔案載入單元列表，共', unitsIndex.length, '個單元');
-  } catch (e) {
-    console.warn('載入單元索引失敗，使用備用數據', e);
-    // 備用數據（與英語平台相同的設計）
-    unitsIndex = [
-      { unitId: 'demo', unitName: '示範篇章', dataUrl: './data/demo.json' }
-    ];
-  }
-},
-
-      populateUnitSelect() {
-        const select = document.getElementById('unit-select');
-        select.innerHTML = '<option value="">請選擇篇章</option>';
-        unitsIndex.forEach(unit => {
-          const option = document.createElement('option');
-          option.value = unit.unitId;
-          option.textContent = unit.unitName;
-          select.appendChild(option);
-        });
-        select.addEventListener('change', (e) => {
-          if (e.target.value) {
-            this.handleUnitSelect(e.target.value);
-          }
-        });
-      },
-
-      async handleUnitSelect(unitId) {
-        if (isTrialExpired && unitsIndex.length > 0) {
-          const firstUnit = unitsIndex[0];
-          if (unitId !== firstUnit.unitId) {
-            alert('⚠️ 試用期已屆滿，只能閱讀第一篇文章。');
-            document.getElementById('unit-select').value = firstUnit.unitId;
-            return;
-          }
-        }
-        
-        stopReadingSession();
-        
-        const unitInfo = unitsIndex.find(u => u.unitId === unitId);
-        if (unitInfo) {
-          await this.loadAndRenderUnit(unitInfo);
-        }
-      },
-
-      async loadAndRenderUnit(unitInfo) {
-        try {
-          document.getElementById('content-container').innerHTML = '<div class="loading-indicator"><i class="fas fa-spinner fa-spin"></i> 載入中...</div>';
-          
-          const response = await fetch(unitInfo.dataUrl);
-          if (!response.ok) throw new Error('載入單元數據失敗');
-          const data = await response.json();
-          
-          currentUnitData = data;
-          currentUnitId = unitInfo.unitId;
-          
-          this.renderContent(data);
-          
-          document.getElementById('unit-select').value = currentUnitId;
-          
-          startReadingSession(currentUnitId);
-          
-          console.log(`✅ 單元 ${currentUnitId} 載入完成`);
-        } catch (error) {
-          console.error('載入失敗:', error);
-          document.getElementById('content-container').innerHTML = `<div class="loading-indicator">載入失敗：${error.message}</div>`;
-        }
-      },
-
-      renderContent(data) {
-        const container = document.getElementById('content-container');
-        const article = data.article;
-        const vocabulary = data.vocabulary || [];
-        
-        let html = `
-          <div class="article-section">
-            <h3 class="article-title" lang="zh">${article.title}</h3>
-            <div class="article-paragraph-wrapper">
-        `;
-        
-        // 渲染文章段落
-        article.paragraphs.forEach((para, idx) => {
-          const paraNum = idx + 1;
-          const slices = para.slices || [];
-          
-          html += `<div class="single-paragraph" id="para-${paraNum}" data-para="${paraNum}">`;
-          
-          slices.forEach((slice, sIdx) => {
-            const sliceId = sIdx + 1;
-            html += `<span class="sentence-slice" data-para="${paraNum}" data-slice-id="${sliceId}" data-audio="${slice.audio || ''}">${slice.text}</span> `;
-          });
-          
-          html += `</div>`;
-          
-          // 控制按鈕
-          html += `
-            <div class="paragraph-controls">
-              <button class="btn btn-outline paragraph-audio-btn" onclick="AudioController.playParagraph(${paraNum})">
-                <i class="fas fa-volume-up"></i> 朗讀
-              </button>
-              <div class="toggle-button-group">
-                <button class="btn toggle-btn active" onclick="Renderer.showTranslation(${paraNum})">
-                  <i class="fas fa-exchange-alt"></i> 語譯
-                </button>
-                <button class="btn toggle-btn" onclick="Renderer.showImplication(${paraNum})">
-                  <i class="fas fa-lightbulb"></i> 解讀
-                </button>
-              </div>
-            </div>
-          `;
-          
-          // 翻譯和解讀內容
-          html += `
-            <div class="unified-content" id="content-${paraNum}">
-              <div class="translation-content" id="trans-${paraNum}" style="display: block;">
-          `;
-          
-          slices.forEach((slice, sIdx) => {
-            const sliceId = sIdx + 1;
-            html += `<span class="translation-sentence" data-slice-id="${sliceId}" data-para="${paraNum}">${slice.translation}</span> `;
-          });
-          
-          html += `
-              </div>
-              <div class="implication-content" id="impl-${paraNum}" style="display: none;">
-                <div class="section">
-                  <strong>本段主旨：</strong>
-                  <div>${para.implication?.summary || ''}</div>
-                </div>
-                <div class="section" style="margin-top: 8px;">
-                  <strong>換句話說：</strong>
-                  <div>${para.implication?.paraphrase || ''}</div>
-                </div>
-              </div>
-            </div>
-          `;
-        });
-        
-        // 詞彙區域
-        if (vocabulary.length > 0) {
-          html += `
-            </div>
-            <div class="vocab-section">
-              <h4 class="vocab-title"><i class="fas fa-bookmark"></i> 核心詞彙</h4>
-              <div class="vocab-list">
-          `;
-          
-          vocabulary.forEach((vocab, idx) => {
-            html += `
-              <div class="vocab-item">
-                <button class="vocab-audio-btn" onclick="AudioController.playVocabulary(${vocab.id})">
-                  <i class="fas fa-volume-up"></i>
-                </button>
-                <div>
-                  <div class="vocab-word">${idx + 1}. ${vocab.word}</div>
-                  <div class="vocab-meaning">${vocab.meaning}</div>
-                </div>
-              </div>
-            `;
-          });
-          
-          html += `</div></div>`;
-        } else {
-          html += `</div>`;
-        }
-        
-        container.innerHTML = html;
-        
-        // 重新綁定事件
-        this.attachEvents();
-      },
-
-      attachEvents() {
-        // 句子點擊播放
-        document.querySelectorAll('.sentence-slice').forEach(el => {
-          el.removeEventListener('click', this.handleSliceClick);
-          el.addEventListener('click', this.handleSliceClick);
-        });
-        
-        // 懸停高亮
-        document.querySelectorAll('.sentence-slice').forEach(el => {
-          el.removeEventListener('mouseenter', this.handleSliceHover);
-          el.addEventListener('mouseenter', this.handleSliceHover);
-          el.removeEventListener('mouseleave', this.handleSliceLeave);
-          el.addEventListener('mouseleave', this.handleSliceLeave);
-        });
-        
-        document.querySelectorAll('.translation-sentence').forEach(el => {
-          el.removeEventListener('mouseenter', this.handleTransHover);
-          el.addEventListener('mouseenter', this.handleTransHover);
-          el.removeEventListener('mouseleave', this.handleTransLeave);
-          el.addEventListener('mouseleave', this.handleTransLeave);
-        });
-      },
-
-      handleSliceClick(e) {
-        const target = e.target;
-        const para = target.dataset.para;
-        const sliceId = target.dataset.sliceId;
-        const audio = target.dataset.audio;
-        AudioController.playSlice(para, sliceId, audio, target.innerText);
-      },
-
-      handleSliceHover(e) {
-        const para = e.target.dataset.para;
-        const sliceId = e.target.dataset.sliceId;
-        const transEl = document.querySelector(`.translation-sentence[data-slice-id="${sliceId}"][data-para="${para}"]`);
-        if (transEl) transEl.classList.add('translation-highlight');
-      },
-
-      handleSliceLeave() {
-        document.querySelectorAll('.translation-sentence.translation-highlight').forEach(el => {
-          el.classList.remove('translation-highlight');
-        });
-      },
-
-      handleTransHover(e) {
-        const sliceId = e.target.dataset.sliceId;
-        const para = e.target.dataset.para;
-        const sentenceEl = document.querySelector(`.sentence-slice[data-slice-id="${sliceId}"][data-para="${para}"]`);
-        if (sentenceEl) sentenceEl.classList.add('sentence-selected');
-      },
-
-      handleTransLeave() {
-        document.querySelectorAll('.sentence-slice.sentence-selected').forEach(el => {
-          el.classList.remove('sentence-selected');
-        });
-      },
-
-      getCurrentUnitData() {
-        return currentUnitData;
+      const paraElement = document.getElementById(currentUnitId + '_para' + paraNum + '-text');
+      if (!paraElement) {
+        console.log('找不到段落元素:', currentUnitId + '_para' + paraNum + '-text');
+        return;
       }
-    };
 
-    // ============================================
-    // 音頻控制器
-    // ============================================
-    const AudioController = {
-      currentAudio: null,
-      currentPlayingSlice: null,
-      currentPlayingTranslation: null,
-      ttsPlaying: false,
+      const sliceElements = paraElement.querySelectorAll('.sentence-slice');
+      if (sliceElements.length === 0) {
+        console.log('段落沒有句子切片');
+        return;
+      }
 
-      stop() {
-        if (window.speechSynthesis) window.speechSynthesis.cancel();
-        if (this.currentAudio) {
-          this.currentAudio.pause();
-          this.currentAudio = null;
+      const slices = currentUnitData.article.paragraphs[paraNum - 1].slices;
+
+      this.currentPlaylist = [];
+      sliceElements.forEach((sliceEl, index) => {
+        const sliceData = slices[index];
+        this.currentPlaylist.push({
+          audio: sliceData?.audio || null,
+          text: sliceEl.textContent,
+          sliceEl: sliceEl,
+          paraNum: paraNum,
+          sliceId: parseInt(sliceEl.dataset.sliceId)
+        });
+      });
+
+      if (this.currentPlaylist.length === 0) {
+        console.log('此段落沒有內容');
+        return;
+      }
+
+      this.currentButton = button;
+      button.innerHTML = '<i class="fas fa-stop"></i> 停止';
+      button.classList.add('playing');
+
+      this.currentPlaylistIndex = 0;
+      this.isPlayingParagraph = true;
+      this._playNextInPlaylist();
+    },
+
+    _playNextInPlaylist() {
+      if (!this.isPlayingParagraph || this.currentPlaylistIndex >= this.currentPlaylist.length) {
+        this.stop();
+        return;
+      }
+
+      const item = this.currentPlaylist[this.currentPlaylistIndex];
+
+      document.querySelectorAll('.sentence-slice.playing').forEach(el => el.classList.remove('playing'));
+      document.querySelectorAll('.translation-sentence.translation-highlight').forEach(el => el.classList.remove('translation-highlight'));
+      
+      item.sliceEl.classList.add('playing');
+      
+      const transContainer = document.getElementById(currentUnitId + '_trans-' + item.paraNum);
+      if (transContainer) {
+        const targetTrans = transContainer.querySelector('.translation-sentence[data-slice-id="' + item.sliceId + '"]');
+        if (targetTrans) {
+          targetTrans.classList.add('translation-highlight');
+          this.currentPlayingTranslation = targetTrans;
         }
-        if (this.currentPlayingSlice) {
-          this.currentPlayingSlice.classList.remove('playing');
-          this.currentPlayingSlice = null;
-        }
+      }
+
+      const playNext = () => {
+        item.sliceEl.classList.remove('playing');
         if (this.currentPlayingTranslation) {
           this.currentPlayingTranslation.classList.remove('translation-highlight');
           this.currentPlayingTranslation = null;
         }
-        this.ttsPlaying = false;
-      },
+        this.currentPlaylistIndex++;
+        this._playNextInPlaylist();
+      };
 
-      playSlice(para, sliceId, audioUrl, text) {
-        if (this.currentPlayingSlice && this.currentPlayingSlice.dataset.sliceId === sliceId) {
-          this.stop();
-          return;
-        }
-        
-        this.stop();
-        
-        const sliceEl = document.querySelector(`.sentence-slice[data-para="${para}"][data-slice-id="${sliceId}"]`);
-        const transEl = document.querySelector(`.translation-sentence[data-para="${para}"][data-slice-id="${sliceId}"]`);
-        
-        if (sliceEl) {
-          sliceEl.classList.add('playing');
-          this.currentPlayingSlice = sliceEl;
-        }
-        if (transEl) {
-          transEl.classList.add('translation-highlight');
-          this.currentPlayingTranslation = transEl;
-        }
-        
-        const playNext = () => {
-          if (sliceEl) sliceEl.classList.remove('playing');
-          if (transEl) transEl.classList.remove('translation-highlight');
-          this.currentPlayingSlice = null;
-          this.currentPlayingTranslation = null;
-          this.currentAudio = null;
+      if (item.audio && item.audio !== '') {
+        const audio = new Audio(item.audio);
+        audio.onended = playNext;
+        audio.onerror = () => {
+          console.log('段落音頻文件不存在，改用 TTS 播放');
+          this._playTTSForItem(item, playNext);
         };
-        
-        if (audioUrl && audioUrl !== '') {
-          const audio = new Audio(audioUrl);
-          audio.onended = playNext;
-          audio.onerror = () => {
-            this.ttsPlaying = true;
-            this.playTTS(text, playNext);
-          };
-          audio.play().catch(() => {
-            this.ttsPlaying = true;
-            this.playTTS(text, playNext);
-          });
-          this.currentAudio = audio;
-        } else {
-          this.ttsPlaying = true;
-          this.playTTS(text, playNext);
-        }
-      },
-
-      playParagraph(paraNum) {
-        const slices = document.querySelectorAll(`.sentence-slice[data-para="${paraNum}"]`);
-        if (slices.length === 0) return;
-        
-        let index = 0;
-        const playNext = () => {
-          if (index >= slices.length) {
-            this.stop();
-            return;
-          }
-          const slice = slices[index];
-          const sliceId = slice.dataset.sliceId;
-          const text = slice.innerText;
-          const audioUrl = slice.dataset.audio;
-          
-          slice.classList.add('playing');
-          const transEl = document.querySelector(`.translation-sentence[data-para="${paraNum}"][data-slice-id="${sliceId}"]`);
-          if (transEl) transEl.classList.add('translation-highlight');
-          
-          const onFinish = () => {
-            slice.classList.remove('playing');
-            if (transEl) transEl.classList.remove('translation-highlight');
-            index++;
-            playNext();
-          };
-          
-          if (audioUrl && audioUrl !== '') {
-            const audio = new Audio(audioUrl);
-            audio.onended = onFinish;
-            audio.onerror = () => this.playTTS(text, onFinish);
-            audio.play().catch(() => this.playTTS(text, onFinish));
-            this.currentAudio = audio;
-          } else {
-            this.playTTS(text, onFinish);
-          }
-        };
-        
-        this.stop();
-        playNext();
-      },
-
-      playVocabulary(vocabId) {
-        const unitData = UnitManager.getCurrentUnitData();
-        const vocab = unitData?.vocabulary?.find(v => v.id === vocabId);
-        if (!vocab) return;
-        
-        const btn = document.querySelector(`.vocab-audio-btn[onclick*="${vocabId}"]`);
-        if (btn && btn.classList.contains('playing')) {
-          this.stop();
-          return;
-        }
-        
-        this.stop();
-        
-        if (btn) {
-          btn.classList.add('playing');
-          btn.innerHTML = '<i class="fas fa-stop"></i>';
-        }
-        
-        const audioUrl = vocab.audio || '';
-        const playNext = () => {
-          if (btn) {
-            btn.classList.remove('playing');
-            btn.innerHTML = '<i class="fas fa-volume-up"></i>';
-          }
-          this.currentAudio = null;
-        };
-        
-        if (audioUrl) {
-          const audio = new Audio(audioUrl);
-          audio.onended = playNext;
-          audio.onerror = () => this.playTTS(vocab.word, playNext);
-          audio.play().catch(() => this.playTTS(vocab.word, playNext));
-          this.currentAudio = audio;
-        } else {
-          this.playTTS(vocab.word, playNext);
-        }
-      },
-
-      playTTS(text, callback) {
-        if (!window.speechSynthesis) {
-          if (callback) callback();
-          return;
-        }
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'zh-HK';
-        utterance.rate = 0.7;
-        utterance.onend = callback;
-        utterance.onerror = callback;
-        window.speechSynthesis.speak(utterance);
-      }
-    };
-
-    // ============================================
-    // 渲染器
-    // ============================================
-    const Renderer = {
-      showTranslation(paraNum) {
-        const trans = document.getElementById(`trans-${paraNum}`);
-        const impl = document.getElementById(`impl-${paraNum}`);
-        if (trans && impl) {
-          trans.style.display = 'block';
-          impl.style.display = 'none';
-        }
-      },
-      
-      showImplication(paraNum) {
-        const trans = document.getElementById(`trans-${paraNum}`);
-        const impl = document.getElementById(`impl-${paraNum}`);
-        if (trans && impl) {
-          trans.style.display = 'none';
-          impl.style.display = 'block';
-        }
-      }
-    };
-
-    // 掛載到全域
-    window.UnitManager = UnitManager;
-    window.AudioController = AudioController;
-    window.Renderer = Renderer;
-
-    // ============================================
-    // 登入狀態監聽
-    // ============================================
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        currentUser = user;
-        document.getElementById('userInfoBar').style.display = 'flex';
-        document.getElementById('userNameDisplay').textContent = user.displayName || user.email || '會員';
-        
-        try {
-          const userRef = doc(db, 'users', user.uid);
-          const userSnap = await getDoc(userRef);
-          
-          if (!userSnap.exists()) {
-            const trialEndDate = new Date();
-            trialEndDate.setDate(trialEndDate.getDate() + TRIAL_DAYS);
-            
-            await setDoc(userRef, {
-              email: user.email,
-              displayName: user.displayName || user.email || '會員',
-              photoURL: user.photoURL || null,
-              phoneNumber: '',
-              role: 'user',
-              premium: false,
-              plan: 'free',
-              trialEndAt: trialEndDate.toISOString(),
-              loginCount: 1,
-              readingProgress: {},
-              createdAt: new Date().toISOString(),
-              lastLoginAt: new Date().toISOString(),
-              updatedAt: new Date().toISOString()
-            });
-            currentUserData = { role: 'user', trialEndAt: trialEndDate.toISOString() };
-            console.log('✅ 新用戶資料已建立');
-          } else {
-            await updateDoc(userRef, {
-              lastLoginAt: new Date().toISOString(),
-              loginCount: increment(1),
-              updatedAt: new Date().toISOString()
-            });
-            currentUserData = userSnap.data();
-            console.log('✅ 用戶資料已更新');
-          }
-          
-          // 檢查帳號是否停用
-          if (currentUserData.isDisabled === true) {
-            document.getElementById('userInfoBar').style.display = 'none';
-            document.getElementById('app').innerHTML = `
-              <div class="disabled-account-container">
-                <i class="fas fa-ban" style="font-size: 64px; color: #ef4444; margin-bottom: 20px;"></i>
-                <h2>帳號已停用</h2>
-                <p>您的帳號已被管理員停用${currentUserData.disabledReason ? '：' + currentUserData.disabledReason : ''}。</p>
-                ${currentUserData.reactivateAt ? `<p>預計於 ${new Date(currentUserData.reactivateAt).toLocaleDateString('zh-HK')} 自動啟用。</p>` : '<p>如有疑問，請聯絡管理員。</p>'}
-                <p style="margin-top: 20px;">系統將在 3 秒後自動登出...</p>
-              </div>
-            `;
-            setTimeout(async () => {
-              await signOut(auth);
-              window.location.href = '/classical-chinese-panel/login.html';
-            }, 3000);
-            return;
-          }
-          
-          // 檢查試用期
-          checkTrialExpired();
-          
-          // 檢查上傳權限
-          const canUpload = ['teacher', 'admin'].includes(currentUserData?.role || 'user');
-          const uploadWrapper = document.getElementById('uploadWrapper');
-          if (uploadWrapper) {
-            uploadWrapper.style.display = canUpload ? 'flex' : 'none';
-          }
-          
-          // 初始化單元管理器
-          await UnitManager.init();
-          
-        } catch (error) {
-          console.error('Firestore 操作失敗:', error);
-        }
+        audio.play().catch(() => {
+          console.log('段落音頻播放失敗，改用 TTS 播放');
+          this._playTTSForItem(item, playNext);
+        });
+        this.currentAudio = audio;
       } else {
-        // 未登入，跳轉到登入頁
-        window.location.href = '/classical-chinese-panel/login.html';
+        this._playTTSForItem(item, playNext);
       }
-    });
-    
-    // 登出按鈕事件
-    document.getElementById('logoutBtn').addEventListener('click', handleLogout);
-    
-    // 上傳功能
-    document.getElementById('unit-upload').addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
+    },
+
+    _playTTSForItem(item, callback) {
+      if (this.ttsPlaying) return;
+      this.ttsPlaying = true;
+      TTSController.speak(item.text, () => {
+        this.ttsPlaying = false;
+        callback();
+      });
+    }
+  };
+
+  // ========== Tooltip 管理 ==========
+  const FixedTooltip = {
+    tooltipEl: document.getElementById('fixed-tooltip'),
+    contentArea: document.getElementById('tooltip-content'),
+    currentSliceKey: null,
+    hideTimer: null,
+
+    generateSliceContent(paraNum, sliceId) {
+      const key = paraNum + '-' + sliceId;
+      const sliceData = sliceContents[key];
+      if (!sliceData) return '';
+      const sliceText = sliceData.text;
+      const translation = sliceData.translation;
+      const vocabItems = (sliceData.vocabIds || []).map(id => {
+        const v = currentUnitData?.vocabulary.find(v => v.id === id);
+        if (!v) return null;
+        return '<div class="vocab-item"><strong>' + v.word + '</strong> ' + v.meaning + '</div>';
+      }).filter(Boolean);
+      let html = '<div class="phrase">「' + sliceText + '」<br>' + translation + '</div>';
+      if (vocabItems.length) {
+        html += '<div class="vocab-list">' + vocabItems.join('') + '</div>';
+      } else {
+        html += '<div class="vocab-list">（無核心詞彙）</div>';
+      }
+      return html;
+    },
+
+    show(paraNum, sliceId) {
+      if (this.hideTimer) { clearTimeout(this.hideTimer); this.hideTimer = null; }
+      const key = paraNum + '-' + sliceId;
+      if (this.currentSliceKey === key && this.tooltipEl.classList.contains('show')) return;
+      const content = this.generateSliceContent(paraNum, sliceId);
+      if (!content) return;
+      this.currentSliceKey = key;
+      if (this.contentArea) this.contentArea.innerHTML = content;
+      else this.tooltipEl.innerHTML = content;
+      this.tooltipEl.classList.add('show');
+    },
+
+    hide() {
+      if (this.hideTimer) clearTimeout(this.hideTimer);
+      this.hideTimer = setTimeout(() => {
+        this.tooltipEl.classList.remove('show');
+        this.currentSliceKey = null;
+        this.hideTimer = null;
+      }, 300);
+    },
+
+    hideImmediately() {
+      if (this.hideTimer) { clearTimeout(this.hideTimer); this.hideTimer = null; }
+      this.tooltipEl.classList.remove('show');
+      this.currentSliceKey = null;
+    }
+  };
+
+  // ========== 拖曳功能 ==========
+  (function initDraggableTooltip() {
+    const tooltip = document.getElementById('fixed-tooltip');
+    const dragHandle = document.getElementById('tooltip-drag-handle');
+    if (!tooltip || !dragHandle) return;
+    let isDragging = false, dragStartX = 0, dragStartY = 0, tooltipLeft = 0, tooltipTop = 0;
+    function startDrag(e) {
+      if (!dragHandle.contains(e.target)) return;
+      isDragging = true;
+      tooltip.classList.add('dragging');
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      const rect = tooltip.getBoundingClientRect();
+      tooltipLeft = rect.left;
+      tooltipTop = rect.top;
+      tooltip.style.right = 'auto';
+      tooltip.style.left = tooltipLeft + 'px';
+      tooltip.style.top = tooltipTop + 'px';
+      e.preventDefault();
+    }
+    function onDrag(e) {
+      if (!isDragging) return;
+      let newLeft = tooltipLeft + (e.clientX - dragStartX);
+      let newTop = tooltipTop + (e.clientY - dragStartY);
+      const maxLeft = window.innerWidth - tooltip.offsetWidth;
+      const maxTop = window.innerHeight - tooltip.offsetHeight;
+      newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+      newTop = Math.max(0, Math.min(newTop, maxTop));
+      tooltip.style.left = newLeft + 'px';
+      tooltip.style.top = newTop + 'px';
+    }
+    function stopDrag() { if (isDragging) { isDragging = false; tooltip.classList.remove('dragging'); } }
+    dragHandle.addEventListener('mousedown', startDrag);
+    document.addEventListener('mousemove', onDrag);
+    document.addEventListener('mouseup', stopDrag);
+    dragHandle.addEventListener('dragstart', (e) => e.preventDefault());
+  })();
+
+  // ========== 句子高亮控制 ==========
+  const SliceHover = {
+    highlightTranslation(paraNum, sliceId) {
+      const transContainer = document.getElementById(currentUnitId + '_trans-' + paraNum);
+      if (transContainer) {
+        const targetTrans = transContainer.querySelector('.translation-sentence[data-slice-id="' + sliceId + '"]');
+        if (targetTrans) targetTrans.classList.add('translation-highlight');
+      }
+    },
+    clearTranslationHighlight() { 
+      document.querySelectorAll('.translation-sentence.translation-highlight').forEach(el => el.classList.remove('translation-highlight')); 
+    },
+    highlightSliceAndSelf(paraNum, sliceId, targetElement) {
+      document.querySelectorAll('#' + currentUnitId + '_para' + paraNum + '-text .sentence-slice[data-slice-id="' + sliceId + '"]').forEach(el => el.classList.add('sentence-selected'));
+      if (targetElement) targetElement.classList.add('translation-highlight');
+    },
+    clearSliceAndSelfHighlight() {
+      document.querySelectorAll('.sentence-slice.sentence-selected').forEach(el => el.classList.remove('sentence-selected'));
+      document.querySelectorAll('.translation-sentence.translation-highlight').forEach(el => el.classList.remove('translation-highlight'));
+    }
+  };
+
+  function formatGrammar(grammar) {
+    if (!grammar) return '';
+    if (grammar.techniques && Array.isArray(grammar.techniques)) {
+      let html = '<div class="grammar-techniques">';
+      grammar.techniques.forEach(tech => {
+        html += '<div class="technique-item"><div class="technique-type">' + (tech.type || '') + '</div>';
+        if (tech.example) html += '<div class="technique-example">「' + tech.example + '」</div>';
+        if (tech.effect) html += '<div class="technique-effect">' + tech.effect + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+      return html;
+    }
+    return grammar.replace(/\n/g, '<br>');
+  }
+
+  // ========== 渲染器 ==========
+  const Renderer = {
+    renderAll(data, unitId) {
+      if (!data) return;
+      currentUnitData = data;
+      currentUnitId = unitId;
+      sliceContents = {};
+      window.sliceContents = sliceContents;
+      this.renderArticle(data, unitId);
+      this.renderAppreciation(data);
+      this.renderKeyPoints(data);
+      this.renderShortAnswer(data);
+      setTimeout(() => {
+        this.attachHoverListeners();
+        this.attachSliceClickListeners();
+        this.attachTooltipEvents();
+        console.log('事件綁定完成，currentUnitId:', currentUnitId);
+      }, 100);
+    },
+
+    attachTooltipEvents() {
+      document.querySelectorAll('.sentence-slice').forEach(slice => {
+        if (slice.hasAttribute('data-tooltip-bound')) return;
+        slice.setAttribute('data-tooltip-bound', 'true');
+        const paraNum = parseInt(slice.dataset.para);
+        const sliceId = parseInt(slice.dataset.sliceId);
+        slice.addEventListener('mouseenter', () => FixedTooltip.show(paraNum, sliceId));
+        slice.addEventListener('mouseleave', () => FixedTooltip.hide());
+      });
+      document.querySelectorAll('.translation-sentence').forEach(trans => {
+        if (trans.hasAttribute('data-trans-tooltip')) return;
+        trans.setAttribute('data-trans-tooltip', 'true');
+        const paraNum = parseInt(trans.dataset.para);
+        const sliceId = parseInt(trans.dataset.sliceId);
+        trans.addEventListener('mouseenter', () => FixedTooltip.show(paraNum, sliceId));
+        trans.addEventListener('mouseleave', () => FixedTooltip.hide());
+      });
+      const tooltip = document.getElementById('fixed-tooltip');
+      if (tooltip && !tooltip.hasAttribute('data-self-bound')) {
+        tooltip.setAttribute('data-self-bound', 'true');
+        tooltip.addEventListener('mouseenter', () => { if (FixedTooltip.hideTimer) clearTimeout(FixedTooltip.hideTimer); });
+        tooltip.addEventListener('mouseleave', () => FixedTooltip.hideImmediately());
+      }
+    },
+
+    renderArticle(data, unitId) {
+      const container = document.getElementById('article-section');
+      const art = data.article;
+      let html = '<div class="article-header"><h3 class="article-title" lang="zh">' + art.title + '</h3></div><div class="article-paragraph-wrapper" id="article-content-' + unitId + '">';
+      art.paragraphs.forEach((para, paraIndex) => {
+        const paraNum = paraIndex + 1;
+        const slices = para.slices || [];
+        slices.forEach((slice, sliceIndex) => {
+          const sliceId = sliceIndex + 1;
+          sliceContents[paraNum + '-' + sliceId] = { text: slice.text, translation: slice.translation, vocabIds: slice.vocabIds || [] };
+        });
+        html += '<div class="single-paragraph" id="' + unitId + '_para' + paraNum + '-text" data-para="' + paraNum + '">';
+        slices.forEach((slice, sliceIndex) => {
+          const sliceId = sliceIndex + 1;
+          html += '<span class="sentence-slice" data-para="' + paraNum + '" data-slice-id="' + sliceId + '" data-audio="' + (slice.audio || '') + '">' + slice.text + '</span> ';
+        });
+        html += '</div><div class="paragraph-controls">' +
+          '<button class="btn btn-outline paragraph-audio-btn" onclick="AudioController.playParagraph(' + paraNum + ', this)"><i class="fas fa-volume-up"></i> 朗讀</button>' +
+          '<div class="toggle-button-group"><button class="btn toggle-btn" onclick="Renderer.showTranslation(' + paraNum + ')"><i class="fas fa-exchange-alt"></i> 語譯</button>' +
+          '<button class="btn toggle-btn" onclick="Renderer.showImplication(' + paraNum + ')"><i class="fas fa-lightbulb"></i> 解讀</button></div>' +
+          '<button class="btn btn-outline footnote-btn" onclick="Renderer.toggleFootnote(' + paraNum + ')"><i class="fas fa-book-open"></i> 腳註</button></div>';
+        html += '<div class="unified-content" id="' + unitId + '_content-' + paraNum + '">' +
+          '<div class="translation-content" id="' + unitId + '_trans-' + paraNum + '" style="display: block;">';
+        slices.forEach((slice, sliceIndex) => {
+          const sliceId = sliceIndex + 1;
+          html += '<span class="translation-sentence" data-slice-id="' + sliceId + '" data-para="' + paraNum + '">' + slice.translation + '</span> ';
+        });
+        html += '</div><div class="implication-content" id="' + unitId + '_impl-' + paraNum + '" style="display: none;">' +
+          '<div class="section"><strong>本段主旨：</strong><div class="section-content">' + (para.implication?.summary || '') + '</div></div>' +
+          '<div class="section"><strong>換句話說：</strong><div class="section-content">' + (para.implication?.paraphrase || '') + '</div></div>' +
+          '<div class="section"><strong>語法分析：</strong><div class="section-content">' + formatGrammar(para.implication?.grammar) + '</div></div>' +
+          '</div></div>';
+        const vocabIdsSet = new Set();
+        slices.forEach(slice => (slice.vocabIds || []).forEach(id => vocabIdsSet.add(id)));
+        const paraVocabIds = Array.from(vocabIdsSet);
+        if (paraVocabIds.length) {
+          html += '<div class="footnotes-section" id="' + unitId + '_footnotes-' + paraNum + '" style="display:none;"><h5><i class="fas fa-book-open"></i> 本段註釋</h5><ol>';
+          paraVocabIds.forEach(id => {
+            const v = data.vocabulary.find(v => v.id === id);
+            if (v) {
+              const contextSlice = slices.find(s => (s.vocabIds || []).includes(id))?.text || '';
+              html += '<li><strong>' + v.word + '</strong> ' + v.meaning + ' <span class="context">「' + contextSlice + '」</span></li>';
+            }
+          });
+          html += '</ol></div>';
+        }
+      });
+      html += '</div>';
+      container.innerHTML = html;
+      window.sliceContents = sliceContents;
+    },
+    renderAppreciation(data) { 
+      const div = document.getElementById('appreciation-content'); 
+      if(data.appreciation?.content) div.innerHTML = data.appreciation.content.map(s => '<div class="appreciation-section"><h4>' + (s.section||'') + '</h4><p>' + (s.text||'').replace(/\n/g,'<br>') + '</p></div>').join(''); 
+      else div.innerHTML = '<p>暫無文章賞析</p>'; 
+    },
+    renderKeyPoints(data) { 
+      const div = document.getElementById('key-points-content'); 
+      if(data.keyPoints?.points) div.innerHTML = data.keyPoints.points.map(p => '<div class="point-item"><strong>' + (p.phrase||'') + '</strong> ' + (p.explanation||'') + '</div>').join(''); 
+      else div.innerHTML = '<p>暫無課文重點</p>'; 
+    },
+    renderShortAnswer(data) { 
+      const div = document.getElementById('short-answer-content'); 
+      if(data.examQuestions?.questions) div.innerHTML = data.examQuestions.questions.map(q => '<div class="qa-item"><div class="question">' + (q.question||'') + '</div><div class="answer">' + (q.answer||'').replace(/\n/g,'<br>') + '</div></div>').join(''); 
+      else div.innerHTML = '<p>暫無簡答題</p>'; 
+    },
+    attachHoverListeners() {
+      document.querySelectorAll('.sentence-slice').forEach(el => {
+        if (el.hasAttribute('data-hover-listener')) return;
+        el.setAttribute('data-hover-listener', 'true');
+        el.addEventListener('mouseenter', (e) => { 
+          const p = e.target.dataset.para, s = e.target.dataset.sliceId; 
+          if(p && s) SliceHover.highlightTranslation(p, s); 
+        });
+        el.addEventListener('mouseleave', () => SliceHover.clearTranslationHighlight());
+      });
+      document.querySelectorAll('.translation-sentence').forEach(el => {
+        if (el.hasAttribute('data-chinese-hover')) return;
+        el.setAttribute('data-chinese-hover', 'true');
+        el.addEventListener('mouseenter', (e) => { 
+          const p = e.target.dataset.para, s = e.target.dataset.sliceId; 
+          if(p && s) SliceHover.highlightSliceAndSelf(p, s, e.target); 
+        });
+        el.addEventListener('mouseleave', () => SliceHover.clearSliceAndSelfHighlight());
+      });
+    },
+    attachSliceClickListeners() { 
+      document.querySelectorAll('.sentence-slice').forEach(slice => { 
+        if(slice.hasAttribute('data-click-listener')) return; 
+        slice.setAttribute('data-click-listener', 'true'); 
+        slice.addEventListener('click', (e) => { 
+          e.stopPropagation(); 
+          AudioController.playSlice(e.target, e.target.dataset.audio); 
+        }); 
+      }); 
+    },
+    showTranslation(paraNum) { 
+      const trans = document.getElementById(currentUnitId + '_trans-' + paraNum); 
+      const impl = document.getElementById(currentUnitId + '_impl-' + paraNum); 
+      const btnT = document.getElementById(currentUnitId + '_trans-btn-' + paraNum); 
+      const btnI = document.getElementById(currentUnitId + '_impl-btn-' + paraNum); 
+      if(trans.style.display === 'block') { 
+        trans.style.display = 'none'; 
+        if(btnT) btnT.classList.remove('active'); 
+      } else { 
+        trans.style.display = 'block'; 
+        impl.style.display = 'none'; 
+        if(btnT) btnT.classList.add('active'); 
+        if(btnI) btnI.classList.remove('active'); 
+      } 
+    },
+    showImplication(paraNum) { 
+      const trans = document.getElementById(currentUnitId + '_trans-' + paraNum); 
+      const impl = document.getElementById(currentUnitId + '_impl-' + paraNum); 
+      const btnT = document.getElementById(currentUnitId + '_trans-btn-' + paraNum); 
+      const btnI = document.getElementById(currentUnitId + '_impl-btn-' + paraNum); 
+      if(impl.style.display === 'flex') { 
+        impl.style.display = 'none'; 
+        if(btnI) btnI.classList.remove('active'); 
+      } else { 
+        impl.style.display = 'flex'; 
+        trans.style.display = 'none'; 
+        if(btnI) btnI.classList.add('active'); 
+        if(btnT) btnT.classList.remove('active'); 
+      } 
+    },
+    toggleFootnote(paraNum) { 
+      const foot = document.getElementById(currentUnitId + '_footnotes-' + paraNum); 
+      const btn = document.getElementById(currentUnitId + '_footnote-btn-' + paraNum); 
+      if(foot.style.display === 'none') { 
+        foot.style.display = 'block'; 
+        if(btn) btn.classList.add('active'); 
+      } else { 
+        foot.style.display = 'none'; 
+        if(btn) btn.classList.remove('active'); 
+      } 
+    }
+  };
+
+  // 公開函數供外部調用
+  window.Renderer = Renderer;
+  window.AudioController = AudioController;
+  window.TTSController = TTSController;
+  window.FixedTooltip = FixedTooltip;
+  window.SliceHover = SliceHover;
+  window.loadUnitsIndex = async function() {
+    try {
+      const response = await fetch('./data/units-index.json');
+      unitsIndex = await response.json();
+      const select = document.getElementById('unit-select');
+      select.innerHTML = '<option value="">請選擇課文</option>';
+      unitsIndex.forEach(unit => { 
+        const opt = document.createElement('option'); 
+        opt.value = unit.unitId; 
+        opt.textContent = unit.unitName; 
+        select.appendChild(opt); 
+      });
+      if (unitsIndex.length) loadUnitByIndex(0);
+    } catch(e) { 
+      console.error('載入索引失敗', e); 
+      document.getElementById('unit-select').innerHTML = '<option value="">載入索引失敗</option>'; 
+    }
+  };
+  window.loadUnitByIndex = async function(index) { 
+    if(unitsIndex[index]) loadUnitById(unitsIndex[index].unitId); 
+  };
+  window.loadUnitById = async function(unitId) { 
+    const unit = unitsIndex.find(u => u.unitId === unitId); 
+    if(unit) { 
+      try {
+        const resp = await fetch(unit.dataUrl); 
+        const data = await resp.json(); 
+        Renderer.renderAll(data, unit.unitId); 
+        document.getElementById('unit-select').value = unitId;
+      } catch(e) {
+        console.error('載入課文失敗', e);
+        alert('無法載入課文：' + unit.unitName);
+      }
+    } 
+  };
+
+  // 上傳事件
+  document.getElementById('unit-upload').addEventListener('change', function(e) { 
+    const file = e.target.files[0]; 
+    if(file) { 
+      const reader = new FileReader(); 
+      reader.onload = ev => { 
+        try { 
+          const data = JSON.parse(ev.target.result); 
+          const tempId = 'upload_' + Date.now(); 
+          Renderer.renderAll(data, tempId); 
+          const opt = document.createElement('option'); 
+          opt.value = tempId; 
+          opt.textContent = data.unitName || '上傳課文'; 
+          opt.selected = true; 
+          document.getElementById('unit-select').appendChild(opt); 
+        } catch(ex) { 
+          alert('JSON解析失敗：'+ex.message); 
+        } 
+      }; 
+      reader.readAsText(file); 
+      e.target.value = ''; 
+    } 
+  });
+</script>
+
+<!-- Firebase 登入與整合邏輯 (module) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+  // 請替換為你的 Firebase 專案設定
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.firebasestorage.app",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // 全域變數
+  let currentUserData = null;
+  let isTrialExpired = false;
+  let readingTimer = null;
+  let currentUnitIdForProgress = null;
+  let lastRecordedPercent = 0;
+  const PROGRESS_THRESHOLD = 10;
+  const TRIAL_DAYS = 7;
+
+  // 閱讀進度相關函數
+  function calculateReadPercent() {
+    const articleWrapper = document.querySelector('.article-paragraph-wrapper');
+    if (!articleWrapper) return 0;
+    const scrollTop = window.scrollY;
+    const articleHeight = articleWrapper.scrollHeight;
+    const windowHeight = window.innerHeight;
+    return Math.min(Math.floor((scrollTop + windowHeight) / articleHeight * 100), 100);
+  }
+
+  function startReadingSession(unitId) {
+    if (readingTimer) clearInterval(readingTimer);
+    currentUnitIdForProgress = unitId;
+    lastRecordedPercent = 0;
+    readingTimer = setInterval(async () => {
+      if (!auth.currentUser || !currentUnitIdForProgress) return;
+      const percent = calculateReadPercent();
+      if (Math.abs(percent - lastRecordedPercent) >= PROGRESS_THRESHOLD) {
+        try {
+          const userRef = doc(db, 'users', auth.currentUser.uid);
+          await updateDoc(userRef, {
+            [`readingProgress.${currentUnitIdForProgress}`]: percent,
+            lastReadUnit: currentUnitIdForProgress,
+            lastReadAt: new Date().toISOString()
+          });
+          lastRecordedPercent = percent;
+          console.log(`📖 閱讀進度更新: ${currentUnitIdForProgress} = ${percent}%`);
+        } catch (error) {
+          console.error('更新閱讀進度失敗:', error);
+        }
+      }
+    }, 30000);
+  }
+
+  function stopReadingSession() {
+    if (readingTimer) {
+      clearInterval(readingTimer);
+      readingTimer = null;
+    }
+    saveFinalProgress();
+    currentUnitIdForProgress = null;
+  }
+
+  async function saveFinalProgress() {
+    if (!auth.currentUser || !currentUnitIdForProgress) return;
+    const finalPercent = calculateReadPercent();
+    if (Math.abs(finalPercent - lastRecordedPercent) >= 1) {
+      try {
+        const userRef = doc(db, 'users', auth.currentUser.uid);
+        await updateDoc(userRef, {
+          [`readingProgress.${currentUnitIdForProgress}`]: finalPercent,
+          lastReadUnit: currentUnitIdForProgress,
+          lastReadAt: new Date().toISOString()
+        });
+        console.log(`📖 最終進度已保存: ${currentUnitIdForProgress} = ${finalPercent}%`);
+      } catch (error) {
+        console.error('保存最終進度失敗:', error);
+      }
+    }
+  }
+
+  function checkTrialExpired() {
+    if (!currentUserData) return false;
+    if (currentUserData.premium) {
+      isTrialExpired = false;
+      document.getElementById('trialExpiredNotice').style.display = 'none';
+      return false;
+    }
+    if (currentUserData.trialEndAt) {
+      const trialEnd = new Date(currentUserData.trialEndAt);
+      const now = new Date();
+      if (now > trialEnd) {
+        isTrialExpired = true;
+        document.getElementById('trialExpiredNotice').style.display = 'flex';
+        console.log('⚠️ 試用期已屆滿');
+        return true;
+      } else {
+        isTrialExpired = false;
+        document.getElementById('trialExpiredNotice').style.display = 'none';
+        const daysLeft = Math.ceil((trialEnd - now) / (1000 * 60 * 60 * 24));
+        console.log(`✅ 試用期剩餘 ${daysLeft} 天`);
+        return false;
+      }
+    }
+    isTrialExpired = true;
+    document.getElementById('trialExpiredNotice').style.display = 'flex';
+    return true;
+  }
+
+  // 試用期限制：攔截單元切換
+  function applyTrialRestrictions() {
+    if (!isTrialExpired) return;
+    const select = document.getElementById('unit-select');
+    const originalHandler = window.loadUnitById;
+    window.loadUnitById = async function(unitId) {
+      const firstUnitId = window.unitsIndex?.[0]?.unitId;
+      if (unitId !== firstUnitId) {
+        alert('⚠️ 試用期已屆滿，只能閱讀第一篇文章。');
+        if (firstUnitId) {
+          document.getElementById('unit-select').value = firstUnitId;
+          originalHandler(firstUnitId);
+        }
+        return;
+      }
+      return originalHandler(unitId);
+    };
+    select.style.pointerEvents = 'none';
+    select.style.opacity = '0.6';
+    select.title = '試用期已屆滿，只能閱讀第一篇文章';
+  }
+
+  // 登出處理
+  async function handleLogout() {
+    try {
+      const btn = document.getElementById('logoutBtn');
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 登出中...';
+      btn.disabled = true;
+      if (readingTimer) {
+        clearInterval(readingTimer);
+        await saveFinalProgress();
+      }
+      await signOut(auth);
+      localStorage.clear();
+      setTimeout(() => {
+        window.location.href = '/classical-chinese-panel/login.html';
+      }, 300);
+    } catch (error) {
+      console.error('登出失敗:', error);
+      alert('登出失敗：' + error.message);
+      const btn = document.getElementById('logoutBtn');
+      btn.innerHTML = '<i class="fas fa-sign-out-alt"></i> 登出';
+      btn.disabled = false;
+    }
+  }
+
+  // 監聽登入狀態
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      document.getElementById('userInfoBar').style.display = 'flex';
+      document.getElementById('userNameDisplay').textContent = user.displayName || user.email || '會員';
       
       try {
-        const text = await file.text();
-        const data = JSON.parse(text);
-        if (!data.unitId || !data.unitName || !data.article) {
-          throw new Error('無效的單元 JSON 格式');
+        const userRef = doc(db, 'users', user.uid);
+        const userSnap = await getDoc(userRef);
+        
+        if (!userSnap.exists()) {
+          const trialEndDate = new Date();
+          trialEndDate.setDate(trialEndDate.getDate() + TRIAL_DAYS);
+          const userData = {
+            email: user.email,
+            displayName: user.displayName || user.email || '會員',
+            photoURL: user.photoURL || null,
+            phoneNumber: '',
+            role: 'user',
+            premium: false,
+            plan: 'free',
+            trialEndAt: trialEndDate.toISOString(),
+            loginCount: 1,
+            readingProgress: {},
+            createdAt: new Date().toISOString(),
+            lastLoginAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+          await setDoc(userRef, userData);
+          currentUserData = userData;
+          console.log('✅ 新用戶資料已建立');
+        } else {
+          await updateDoc(userRef, {
+            lastLoginAt: new Date().toISOString(),
+            loginCount: increment(1),
+            updatedAt: new Date().toISOString()
+          });
+          currentUserData = userSnap.data();
+          console.log('✅ 用戶資料已更新');
         }
+
+        // 檢查帳號停用
+        if (currentUserData.isDisabled === true) {
+          document.getElementById('userInfoBar').style.display = 'none';
+          document.getElementById('a4-container').innerHTML = `
+            <div class="disabled-account-container">
+              <i class="fas fa-ban" style="font-size: 64px; color: #ef4444; margin-bottom: 20px;"></i>
+              <h2>帳號已停用</h2>
+              <p>您的帳號已被管理員停用${currentUserData.disabledReason ? '：' + currentUserData.disabledReason : ''}。</p>
+              ${currentUserData.reactivateAt ? `<p>預計於 ${new Date(currentUserData.reactivateAt).toLocaleDateString('zh-HK')} 自動啟用。</p>` : '<p>如有疑問，請聯絡管理員。</p>'}
+              <p style="margin-top: 20px;">系統將在 3 秒後自動登出...</p>
+            </div>
+          `;
+          setTimeout(async () => {
+            await signOut(auth);
+            window.location.href = '/classical-chinese-panel/login.html';
+          }, 3000);
+          return;
+        }
+
+        // 試用期檢查
+        checkTrialExpired();
+        applyTrialRestrictions();
+
+        // 權限控制：顯示上傳按鈕
+        const canUpload = ['teacher', 'admin'].includes(currentUserData?.role || 'user');
+        const uploadWrapper = document.getElementById('uploadWrapper');
+        if (uploadWrapper) uploadWrapper.style.display = canUpload ? 'flex' : 'none';
+
+        // 載入課文索引（原版功能）
+        if (window.loadUnitsIndex) {
+          await window.loadUnitsIndex();
+          // 在渲染後啟動閱讀進度追蹤
+          const originalRenderAll = window.Renderer.renderAll;
+          window.Renderer.renderAll = function(data, unitId) {
+            originalRenderAll(data, unitId);
+            startReadingSession(unitId);
+          };
+        }
+
+        // 監聽單元切換，停止舊進度
+        document.getElementById('unit-select').addEventListener('change', () => {
+          stopReadingSession();
+        });
+
+        // 頁面離開保存進度
+        window.addEventListener('beforeunload', () => {
+          if (readingTimer) {
+            clearInterval(readingTimer);
+            saveFinalProgress();
+          }
+        });
+
+        // 登出按鈕
+        document.getElementById('logoutBtn').addEventListener('click', handleLogout);
         
-        const tempId = 'upload_' + Date.now();
-        const tempUnit = {
-          unitId: tempId,
-          unitName: data.unitName,
-          dataUrl: URL.createObjectURL(file)
-        };
-        unitsIndex.unshift(tempUnit);
-        
-        const select = document.getElementById('unit-select');
-        const option = document.createElement('option');
-        option.value = tempId;
-        option.textContent = data.unitName;
-        select.appendChild(option);
-        
-        await UnitManager.loadAndRenderUnit(tempUnit);
-      } catch (err) {
-        alert('解析 JSON 失敗：' + err.message);
-      } finally {
-        e.target.value = '';
+      } catch (error) {
+        console.error('Firestore 操作失敗:', error);
       }
-    });
-  </script>
+    } else {
+      // 未登入，跳轉登入頁
+      window.location.href = '/classical-chinese-panel/login.html';
+    }
+  });
+</script>
 </body>
 </html>
