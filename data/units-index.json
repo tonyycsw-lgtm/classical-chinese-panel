@@ -1,0 +1,12 @@
+[
+  {
+    "unitId": "demo",
+    "unitName": "示範篇章",
+    "dataUrl": "./data/demo.json"
+  },
+  {
+    "unitId": "lunyu_xueer",
+    "unitName": "論語·學而篇",
+    "dataUrl": "./data/lunyu_xueer.json"
+  }
+]
