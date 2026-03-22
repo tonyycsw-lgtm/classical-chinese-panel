@@ -1,0 +1,1051 @@
+{
+  "unitId": "liuguo-lun",
+  "unitName": "六國論",
+  "article": {
+    "title": "六國論\n(全文)",
+    "paragraphs": [
+      {
+        "slices": [
+          {
+            "text": "六國破滅，",
+            "translation": "六國滅亡，",
+            "vocabIds": [1, 2],
+            "audio": "./audio/audio_六國論/para1_001.mp3"
+          },
+          {
+            "text": "非兵不利，",
+            "translation": "不是因為武器不鋒利，",
+            "vocabIds": [3, 4, 5],
+            "audio": "./audio/audio_六國論/para1_002.mp3"
+          },
+          {
+            "text": "戰不善，",
+            "translation": "仗打得不好，",
+            "vocabIds": [6, 7],
+            "audio": "./audio/audio_六國論/para1_003.mp3"
+          },
+          {
+            "text": "弊在賂秦。",
+            "translation": "弊端在於用土地賄賂秦國。",
+            "vocabIds": [8, 9, 10],
+            "audio": "./audio/audio_六國論/para1_004.mp3"
+          },
+          {
+            "text": "或曰：",
+            "translation": "有人說：",
+            "vocabIds": [11, 12],
+            "audio": "./audio/audio_六國論/para1_005.mp3"
+          },
+          {
+            "text": "「六國互喪，",
+            "translation": "「六國相繼滅亡，",
+            "vocabIds": [1, 13],
+            "audio": "./audio/audio_六國論/para1_006.mp3"
+          },
+          {
+            "text": "率賂秦耶？」",
+            "translation": "全都是因為賄賂秦國嗎？」",
+            "vocabIds": [14, 10, 15],
+            "audio": "./audio/audio_六國論/para1_007.mp3"
+          },
+          {
+            "text": "曰：",
+            "translation": "回答說：",
+            "vocabIds": [12],
+            "audio": "./audio/audio_六國論/para1_008.mp3"
+          },
+          {
+            "text": "「不賂者以賂者喪。",
+            "translation": "「不賄賂的國家因為賄賂的國家而滅亡。",
+            "vocabIds": [16, 17, 18, 17, 19],
+            "audio": "./audio/audio_六國論/para1_009.mp3"
+          },
+          {
+            "text": "蓋失強援，",
+            "translation": "因為失去了強大的援助，",
+            "vocabIds": [20, 21, 22],
+            "audio": "./audio/audio_六國論/para1_010.mp3"
+          },
+          {
+            "text": "不能獨完，",
+            "translation": "不能獨自保全，",
+            "vocabIds": [23, 24, 25],
+            "audio": "./audio/audio_六國論/para1_011.mp3"
+          },
+          {
+            "text": "故曰『弊在賂秦』也。」",
+            "translation": "所以說『弊端在於賄賂秦國』啊。」",
+            "vocabIds": [26, 12, 8, 9, 10, 27],
+            "audio": "./audio/audio_六國論/para1_012.mp3"
+          }
+        ],
+        "implication": {
+          "summary": "開門見山提出中心論點：六國滅亡的根本原因在於賄賂秦國，而非軍事問題，並初步解釋不賄賂的國家也因失去援助而滅亡。",
+          "paraphrase": "換句話說：六國之所以會滅亡，不是因為他們的武器不夠利，也不是因為他們不會打仗，最根本的問題出在他們老是想著割地賄賂秦國來換取和平。有人會問：「那難道所有國家都這樣做嗎？」答案是：不賄賂的那些國家，因為賄賂的國家把援助都斷送了，最後也跟著一起完蛋。",
+          "grammar": {
+            "display": "📌 修辭手法分析（第一段）\n\n1️⃣ 設問\n• 「六國互喪，率賂秦耶？」：先提出假設性的問題，再自己回答，引出對中心論點的進一步解釋。\n\n2️⃣ 頂真\n• 「賂秦而力虧，破滅之道也」：前一句的結尾「賂秦」與後一句的開頭「破滅之道」在語意上緊密相連，使論證環環相扣。",
+            "techniques": [
+              {
+                "type": "設問",
+                "example": "「六國互喪，率賂秦耶？」",
+                "effect": "先提出假設性的問題，再自己回答，引出對中心論點的進一步解釋，使論證更有層次。"
+              },
+              {
+                "type": "頂真",
+                "example": "「賂秦而力虧，破滅之道也」",
+                "effect": "前一句的結尾與後一句的開頭語意相連，使論證環環相扣，語氣連貫。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "slices": [
+          {
+            "text": "秦以攻取之外，",
+            "translation": "秦國除了用攻戰奪取土地之外，",
+            "vocabIds": [28, 18, 29, 30],
+            "audio": "./audio/audio_六國論/para2_001.mp3"
+          },
+          {
+            "text": "小則獲邑，",
+            "translation": "小的收穫就得到市鎮，",
+            "vocabIds": [31, 32, 33, 34],
+            "audio": "./audio/audio_六國論/para2_002.mp3"
+          },
+          {
+            "text": "大則得城。",
+            "translation": "大的收穫就得到城池。",
+            "vocabIds": [35, 32, 36, 37],
+            "audio": "./audio/audio_六國論/para2_003.mp3"
+          },
+          {
+            "text": "較秦之所得，",
+            "translation": "比較秦國由受賂得到的土地，",
+            "vocabIds": [38, 28, 39, 40],
+            "audio": "./audio/audio_六國論/para2_004.mp3"
+          },
+          {
+            "text": "與戰勝而得者，",
+            "translation": "與戰勝得到的土地相比，",
+            "vocabIds": [41, 42, 43, 44],
+            "audio": "./audio/audio_六國論/para2_005.mp3"
+          },
+          {
+            "text": "其實百倍；",
+            "translation": "它實際上是戰勝所得的上百倍；",
+            "vocabIds": [45, 46, 47],
+            "audio": "./audio/audio_六國論/para2_006.mp3"
+          },
+          {
+            "text": "諸侯之所亡，",
+            "translation": "諸侯們因賄賂而損失的土地，",
+            "vocabIds": [48, 39, 49],
+            "audio": "./audio/audio_六國論/para2_007.mp3"
+          },
+          {
+            "text": "與戰敗而亡者，",
+            "translation": "與戰敗而損失的土地相比，",
+            "vocabIds": [41, 50, 43, 51],
+            "audio": "./audio/audio_六國論/para2_008.mp3"
+          },
+          {
+            "text": "其實亦百倍。",
+            "translation": "它實際上也是戰敗損失的上百倍。",
+            "vocabIds": [45, 46, 52, 47],
+            "audio": "./audio/audio_六國論/para2_009.mp3"
+          },
+          {
+            "text": "則秦之所大欲，",
+            "translation": "那麼秦國最大的欲望，",
+            "vocabIds": [32, 28, 39, 53],
+            "audio": "./audio/audio_六國論/para2_010.mp3"
+          },
+          {
+            "text": "諸侯之所大患，",
+            "translation": "諸侯最大的禍患，",
+            "vocabIds": [48, 39, 54],
+            "audio": "./audio/audio_六國論/para2_011.mp3"
+          },
+          {
+            "text": "固不在戰矣。",
+            "translation": "本來就不在於戰爭了。",
+            "vocabIds": [55, 16, 9, 6, 56],
+            "audio": "./audio/audio_六國論/para2_012.mp3"
+          },
+          {
+            "text": "思厥先祖父，",
+            "translation": "想想他們的祖先，",
+            "vocabIds": [57, 58, 59, 60],
+            "audio": "./audio/audio_六國論/para2_013.mp3"
+          },
+          {
+            "text": "暴霜露，",
+            "translation": "曝露在霜露之中，",
+            "vocabIds": [61, 62],
+            "audio": "./audio/audio_六國論/para2_014.mp3"
+          },
+          {
+            "text": "斬荆棘，",
+            "translation": "披荊斬棘，",
+            "vocabIds": [63, 64],
+            "audio": "./audio/audio_六國論/para2_015.mp3"
+          },
+          {
+            "text": "以有尺寸之地。",
+            "translation": "才有了那麼一點點的土地。",
+            "vocabIds": [18, 65, 66, 39, 67],
+            "audio": "./audio/audio_六國論/para2_016.mp3"
+          },
+          {
+            "text": "子孫視之不甚惜，",
+            "translation": "子孫們看待這些土地卻不怎麼愛惜，",
+            "vocabIds": [68, 69, 39, 70, 71],
+            "audio": "./audio/audio_六國論/para2_017.mp3"
+          },
+          {
+            "text": "舉以予人，",
+            "translation": "拿來送給別人，",
+            "vocabIds": [72, 18, 73],
+            "audio": "./audio/audio_六國論/para2_018.mp3"
+          },
+          {
+            "text": "如棄草芥。",
+            "translation": "就像丟棄小草一樣。",
+            "vocabIds": [74, 75, 76],
+            "audio": "./audio/audio_六國論/para2_019.mp3"
+          },
+          {
+            "text": "今日割五城，",
+            "translation": "今天割讓五座城，",
+            "vocabIds": [77, 78, 79, 37],
+            "audio": "./audio/audio_六國論/para2_020.mp3"
+          },
+          {
+            "text": "明日割十城，",
+            "translation": "明天割讓十座城，",
+            "vocabIds": [80, 78, 81, 37],
+            "audio": "./audio/audio_六國論/para2_021.mp3"
+          },
+          {
+            "text": "然後得一夕安寢，",
+            "translation": "然後才能換得一晚安穩的睡眠，",
+            "vocabIds": [82, 36, 83, 84],
+            "audio": "./audio/audio_六國論/para2_022.mp3"
+          },
+          {
+            "text": "起視四境，",
+            "translation": "起床看看四周的邊境，",
+            "vocabIds": [85, 86, 87],
+            "audio": "./audio/audio_六國論/para2_023.mp3"
+          },
+          {
+            "text": "而秦兵又至矣。",
+            "translation": "秦國的軍隊又到了。",
+            "vocabIds": [43, 28, 4, 88, 89, 56],
+            "audio": "./audio/audio_六國論/para2_024.mp3"
+          },
+          {
+            "text": "然則諸侯之地有限，",
+            "translation": "既然這樣，那麼諸侯的土地是有限的，",
+            "vocabIds": [90, 48, 39, 67, 91],
+            "audio": "./audio/audio_六國論/para2_025.mp3"
+          },
+          {
+            "text": "暴秦之欲無厭，",
+            "translation": "強暴的秦國的慾望是沒有滿足的，",
+            "vocabIds": [92, 39, 93, 94],
+            "audio": "./audio/audio_六國論/para2_026.mp3"
+          },
+          {
+            "text": "奉之彌繁，",
+            "translation": "送給他越多，",
+            "vocabIds": [95, 39, 96],
+            "audio": "./audio/audio_六國論/para2_027.mp3"
+          },
+          {
+            "text": "侵之愈急，",
+            "translation": "侵犯你就越厲害，",
+            "vocabIds": [97, 39, 98],
+            "audio": "./audio/audio_六國論/para2_028.mp3"
+          },
+          {
+            "text": "故不戰而強弱勝負已判矣。",
+            "translation": "所以不用打仗，強弱勝負已經決定了。",
+            "vocabIds": [26, 16, 6, 43, 99, 100, 101, 102, 56],
+            "audio": "./audio/audio_六國論/para2_029.mp3"
+          },
+          {
+            "text": "至於顛覆，",
+            "translation": "以至於最終滅亡，",
+            "vocabIds": [103, 104],
+            "audio": "./audio/audio_六國論/para2_030.mp3"
+          },
+          {
+            "text": "理固宜然。",
+            "translation": "道理本來就應該是這樣的。",
+            "vocabIds": [105, 55, 106, 107],
+            "audio": "./audio/audio_六國論/para2_031.mp3"
+          },
+          {
+            "text": "古人云：",
+            "translation": "古人說：",
+            "vocabIds": [108, 109],
+            "audio": "./audio/audio_六國論/para2_032.mp3"
+          },
+          {
+            "text": "「以地事秦，",
+            "translation": "「用土地來侍奉秦國，",
+            "vocabIds": [18, 67, 110, 28],
+            "audio": "./audio/audio_六國論/para2_033.mp3"
+          },
+          {
+            "text": "猶抱薪救火，",
+            "translation": "就好像抱著柴草去救火，",
+            "vocabIds": [111, 112, 113, 114],
+            "audio": "./audio/audio_六國論/para2_034.mp3"
+          },
+          {
+            "text": "薪不盡，",
+            "translation": "柴草沒燒完，",
+            "vocabIds": [113, 16, 115],
+            "audio": "./audio/audio_六國論/para2_035.mp3"
+          },
+          {
+            "text": "火不滅。」",
+            "translation": "火是不會熄滅的。」",
+            "vocabIds": [116, 16, 117],
+            "audio": "./audio/audio_六國論/para2_036.mp3"
+          },
+          {
+            "text": "此言得之。",
+            "translation": "這話說得很對。",
+            "vocabIds": [118, 119, 36, 39],
+            "audio": "./audio/audio_六國論/para2_037.mp3"
+          }
+        ],
+        "implication": {
+          "summary": "以具體數據和歷史事實，論證賄賂秦國只會助長其貪慾，加速自身滅亡，並引用古語作比喻，形象說明割地事秦的愚蠢。",
+          "paraphrase": "換句話說：秦國從受賂得到的土地，比打仗得來的多得多。想想六國的祖先當年多辛苦才有了這點基業，子孫卻大手大腳地送人。今天割五城，明天割十城，換來的只是一夜安穩，第二天秦國又打來了。你送得越多，他要得越兇，土地有限，慾望無窮，到頭來還是死路一條。古人說得對，用土地賄賂秦國，就像抱薪救火，柴不燒完，火是不會滅的。",
+          "grammar": {
+            "display": "📌 修辭手法分析（第二段）\n\n1️⃣ 對比\n• 「秦之所得」與「戰勝而得者」、「諸侯之所亡」與「戰敗而亡者」進行對比，突顯賂秦帶來的巨大損失。\n\n2️⃣ 比喻\n• 「如棄草芥」：將子孫拋棄祖先土地的行為，比作丟棄小草，刻畫其毫不珍惜的態度。\n\n3️⃣ 引用\n• 「以地事秦，猶抱薪救火，薪不盡，火不滅」：引用古人之言，為自己的論點提供權威支持，使論證更有說服力。",
+            "techniques": [
+              {
+                "type": "對比",
+                "example": "「秦之所得」與「戰勝而得者」、「諸侯之所亡」與「戰敗而亡者」",
+                "effect": "通過數據的對比，突顯賄賂秦國帶來的損失遠比戰爭慘重，論證了「弊在賂秦」的觀點。"
+              },
+              {
+                "type": "比喻",
+                "example": "「如棄草芥」",
+                "effect": "將六國子孫輕易拋棄祖先艱苦得來的土地的行為，比作丟棄微不足道的小草，生動刻畫出其不珍惜的態度。"
+              },
+              {
+                "type": "引用",
+                "example": "「以地事秦，猶抱薪救火，薪不盡，火不滅」",
+                "effect": "引用古人的話語，生動形象地說明了割地賄賂只會助長敵人、加速自身滅亡的道理，使論證更具權威性。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "slices": [
+          {
+            "text": "齊人未嘗賂秦，",
+            "translation": "齊國人不曾賄賂秦國，",
+            "vocabIds": [120, 121, 10],
+            "audio": "./audio/audio_六國論/para3_001.mp3"
+          },
+          {
+            "text": "終繼五國遷滅，",
+            "translation": "最終也跟著五國之後被滅亡，",
+            "vocabIds": [122, 123, 124, 125],
+            "audio": "./audio/audio_六國論/para3_002.mp3"
+          },
+          {
+            "text": "何哉？",
+            "translation": "為什麼呢？",
+            "vocabIds": [126, 127],
+            "audio": "./audio/audio_六國論/para3_003.mp3"
+          },
+          {
+            "text": "與嬴而不助五國也。",
+            "translation": "是因為結交嬴秦而不幫助其他五國啊。",
+            "vocabIds": [41, 128, 43, 16, 129, 124, 27],
+            "audio": "./audio/audio_六國論/para3_004.mp3"
+          },
+          {
+            "text": "五國既喪，",
+            "translation": "五國已經滅亡，",
+            "vocabIds": [124, 130, 19],
+            "audio": "./audio/audio_六國論/para3_005.mp3"
+          },
+          {
+            "text": "齊亦不免矣。",
+            "translation": "齊國也就無法避免了。",
+            "vocabIds": [131, 52, 16, 132, 56],
+            "audio": "./audio/audio_六國論/para3_006.mp3"
+          },
+          {
+            "text": "燕趙之君，",
+            "translation": "燕國和趙國的國君，",
+            "vocabIds": [133, 134, 39, 135],
+            "audio": "./audio/audio_六國論/para3_007.mp3"
+          },
+          {
+            "text": "始有遠略，",
+            "translation": "起初有長遠的謀略，",
+            "vocabIds": [136, 65, 137],
+            "audio": "./audio/audio_六國論/para3_008.mp3"
+          },
+          {
+            "text": "能守其土，",
+            "translation": "能夠守住他們的國土，",
+            "vocabIds": [138, 139, 45, 140],
+            "audio": "./audio/audio_六國論/para3_009.mp3"
+          },
+          {
+            "text": "義不賂秦。",
+            "translation": "堅持道義不賄賂秦國。",
+            "vocabIds": [141, 16, 10],
+            "audio": "./audio/audio_六國論/para3_010.mp3"
+          },
+          {
+            "text": "是故燕雖小國而後亡，",
+            "translation": "所以燕國雖然是小國卻最後滅亡，",
+            "vocabIds": [142, 133, 143, 144, 43, 145, 146],
+            "audio": "./audio/audio_六國論/para3_011.mp3"
+          },
+          {
+            "text": "斯用兵之效也。",
+            "translation": "這就是用兵抗秦的效果啊。",
+            "vocabIds": [147, 148, 39, 149, 27],
+            "audio": "./audio/audio_六國論/para3_012.mp3"
+          },
+          {
+            "text": "至丹以荊卿為計，",
+            "translation": "等到燕太子丹用派荊軻刺秦作為策略，",
+            "vocabIds": [89, 150, 18, 151, 152, 153],
+            "audio": "./audio/audio_六國論/para3_013.mp3"
+          },
+          {
+            "text": "始速禍焉。",
+            "translation": "才招致了禍患。",
+            "vocabIds": [136, 154, 155, 156],
+            "audio": "./audio/audio_六國論/para3_014.mp3"
+          },
+          {
+            "text": "趙嘗五戰于秦，",
+            "translation": "趙國曾經五次與秦國作戰，",
+            "vocabIds": [134, 157, 79, 6, 158, 28],
+            "audio": "./audio/audio_六國論/para3_015.mp3"
+          },
+          {
+            "text": "二敗而三勝。",
+            "translation": "兩次失敗而三次勝利。",
+            "vocabIds": [159, 160, 43, 161, 162],
+            "audio": "./audio/audio_六國論/para3_016.mp3"
+          },
+          {
+            "text": "後秦擊趙者再，",
+            "translation": "後來秦國又兩次攻打趙國，",
+            "vocabIds": [145, 28, 163, 134, 164, 165],
+            "audio": "./audio/audio_六國論/para3_017.mp3"
+          },
+          {
+            "text": "李牧連卻之；",
+            "translation": "李牧接連打退了秦軍；",
+            "vocabIds": [166, 167, 168, 39],
+            "audio": "./audio/audio_六國論/para3_018.mp3"
+          },
+          {
+            "text": "洎牧以讒誅，",
+            "translation": "等到李牧因為讒言被殺，",
+            "vocabIds": [169, 166, 18, 170, 171],
+            "audio": "./audio/audio_六國論/para3_019.mp3"
+          },
+          {
+            "text": "邯鄲為郡，",
+            "translation": "邯鄲才變成了秦國的郡，",
+            "vocabIds": [172, 152, 173],
+            "audio": "./audio/audio_六國論/para3_020.mp3"
+          },
+          {
+            "text": "惜其用武而不終也。",
+            "translation": "可惜他們使用武力抗秦卻沒能堅持到底啊。",
+            "vocabIds": [174, 45, 175, 43, 16, 122, 27],
+            "audio": "./audio/audio_六國論/para3_021.mp3"
+          },
+          {
+            "text": "且燕趙處秦革滅殆盡之際，",
+            "translation": "再說燕趙兩國正處在秦國把其他國家消滅得差不多的時候，",
+            "vocabIds": [176, 133, 134, 177, 28, 178, 179, 39, 180],
+            "audio": "./audio/audio_六國論/para3_022.mp3"
+          },
+          {
+            "text": "可謂智力孤危，",
+            "translation": "可以說是智謀和力量都很孤單危險，",
+            "vocabIds": [181, 182, 183],
+            "audio": "./audio/audio_六國論/para3_023.mp3"
+          },
+          {
+            "text": "戰敗而亡，",
+            "translation": "作戰失敗而滅亡，",
+            "vocabIds": [50, 43, 146],
+            "audio": "./audio/audio_六國論/para3_024.mp3"
+          },
+          {
+            "text": "誠不得已。",
+            "translation": "實在是不得已的事。",
+            "vocabIds": [184, 16, 185],
+            "audio": "./audio/audio_六國論/para3_025.mp3"
+          },
+          {
+            "text": "向使三國各愛其地，",
+            "translation": "當初假使韓、魏、楚三國各自愛惜他們的土地，",
+            "vocabIds": [186, 187, 188, 189, 45, 67],
+            "audio": "./audio/audio_六國論/para3_026.mp3"
+          },
+          {
+            "text": "齊人勿附於秦，",
+            "translation": "齊國人不要親附秦國，",
+            "vocabIds": [120, 190, 191, 158, 28],
+            "audio": "./audio/audio_六國論/para3_027.mp3"
+          },
+          {
+            "text": "刺客不行，",
+            "translation": "燕國的刺客荊軻不去行刺，",
+            "vocabIds": [192, 16, 193],
+            "audio": "./audio/audio_六國論/para3_028.mp3"
+          },
+          {
+            "text": "良將猶在，",
+            "translation": "趙國的李牧這樣的良將還活著，",
+            "vocabIds": [194, 111, 9],
+            "audio": "./audio/audio_六國論/para3_029.mp3"
+          },
+          {
+            "text": "則勝負之數，",
+            "translation": "那麼勝敗的命運，",
+            "vocabIds": [32, 100, 39, 195],
+            "audio": "./audio/audio_六國論/para3_030.mp3"
+          },
+          {
+            "text": "存亡之理，",
+            "translation": "生存滅亡的道理，",
+            "vocabIds": [196, 39, 105],
+            "audio": "./audio/audio_六國論/para3_031.mp3"
+          },
+          {
+            "text": "當與秦相較，",
+            "translation": "應當能與秦國相抗衡，",
+            "vocabIds": [197, 41, 28, 198],
+            "audio": "./audio/audio_六國論/para3_032.mp3"
+          },
+          {
+            "text": "或未易量。",
+            "translation": "或許還不容易估量呢。",
+            "vocabIds": [11, 199, 200, 201],
+            "audio": "./audio/audio_六國論/para3_033.mp3"
+          }
+        ],
+        "implication": {
+          "summary": "通過分析齊、燕、趙三國滅亡的具體情況，從反面論證了不賂秦、用兵抗爭的重要性，並指出內部不團結、用人不當等問題加速了滅亡。",
+          "paraphrase": "換句話說：齊國沒賄賂秦國，但也滅亡了，因為他只知道討好秦國卻不幫其他五國。燕國和趙國開始做得不錯，堅守道義，奮力抵抗，所以撐得久。可惜後來燕國用暗殺這種險招，趙國又中了秦國的反間計殺了名將李牧，自己斷送了前途。所以說，如果當初韓、魏、楚不割地，齊國不依附秦國，燕國不行刺，趙國有良將，誰輸誰贏還不一定呢！",
+          "grammar": {
+            "display": "📌 修辭手法分析（第三段）\n\n1️⃣ 設問\n• 「齊人未嘗賂秦，終繼五國遷滅，何哉？」：先提出疑問，再自問自答，引導讀者思考齊國滅亡的特殊原因。\n\n2️⃣ 對比\n• 「燕雖小國而後亡」與「至丹以荊卿為計，始速禍焉」：將燕國前期的正確策略與後期的錯誤決定進行對比，說明政策失誤的危害。\n\n3️⃣ 排比\n• 「向使三國各愛其地，齊人勿附於秦，刺客不行，良將猶在」：運用四個排比句，從不同角度假設六國不犯錯的情況，增強了反推論證的氣勢。",
+            "techniques": [
+              {
+                "type": "設問",
+                "example": "「齊人未嘗賂秦，終繼五國遷滅，何哉？」",
+                "effect": "先提出疑問，再自問自答，引導讀者思考齊國滅亡的特殊原因，使論證更有針對性。"
+              },
+              {
+                "type": "對比",
+                "example": "「燕雖小國而後亡」與「至丹以荊卿為計，始速禍焉」",
+                "effect": "將燕國前期的正確策略與後期的錯誤決定進行對比，鮮明地說明了政策失誤帶來的嚴重後果。"
+              },
+              {
+                "type": "排比",
+                "example": "「向使三國各愛其地，齊人勿附於秦，刺客不行，良將猶在」",
+                "effect": "運用四個排比句，從不同角度假設六國不犯錯的情況，節奏緊湊，增強了反推論證的氣勢，使假設情境更具說服力。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "slices": [
+          {
+            "text": "嗚呼！",
+            "translation": "唉！",
+            "vocabIds": [202],
+            "audio": "./audio/audio_六國論/para4_001.mp3"
+          },
+          {
+            "text": "以賂秦之地，",
+            "translation": "如果拿用來賄賂秦國的土地，",
+            "vocabIds": [18, 10, 39, 67],
+            "audio": "./audio/audio_六國論/para4_002.mp3"
+          },
+          {
+            "text": "封天下之謀臣；",
+            "translation": "封賞給天下的謀臣；",
+            "vocabIds": [203, 204, 39, 205],
+            "audio": "./audio/audio_六國論/para4_003.mp3"
+          },
+          {
+            "text": "以事秦之心，",
+            "translation": "用侍奉秦國的心意，",
+            "vocabIds": [18, 110, 28, 39, 206],
+            "audio": "./audio/audio_六國論/para4_004.mp3"
+          },
+          {
+            "text": "禮天下之奇才；",
+            "translation": "禮遇天下的奇才；",
+            "vocabIds": [207, 204, 39, 208],
+            "audio": "./audio/audio_六國論/para4_005.mp3"
+          },
+          {
+            "text": "并力西向，",
+            "translation": "合力向西對付秦國，",
+            "vocabIds": [209, 210],
+            "audio": "./audio/audio_六國論/para4_006.mp3"
+          },
+          {
+            "text": "則吾恐秦人食之不得下咽也。",
+            "translation": "那麼我恐怕秦國人連飯都吃不下去啊。",
+            "vocabIds": [32, 211, 212, 213, 214, 39, 215, 216, 217, 27],
+            "audio": "./audio/audio_六國論/para4_007.mp3"
+          },
+          {
+            "text": "悲夫！",
+            "translation": "可悲啊！",
+            "vocabIds": [218, 219],
+            "audio": "./audio/audio_六國論/para4_008.mp3"
+          },
+          {
+            "text": "有如此之勢，",
+            "translation": "有這樣好的形勢，",
+            "vocabIds": [65, 220, 39, 221],
+            "audio": "./audio/audio_六國論/para4_009.mp3"
+          },
+          {
+            "text": "而為秦人積威之所劫，",
+            "translation": "卻被秦國人長久以來的威勢所脅迫，",
+            "vocabIds": [43, 152, 213, 222, 39, 223, 224],
+            "audio": "./audio/audio_六國論/para4_010.mp3"
+          },
+          {
+            "text": "日削月割，",
+            "translation": "一天天、一月月地削減割讓土地，",
+            "vocabIds": [225, 226, 227, 78],
+            "audio": "./audio/audio_六國論/para4_011.mp3"
+          },
+          {
+            "text": "以趨於亡。",
+            "translation": "以至於走向滅亡。",
+            "vocabIds": [18, 228, 158, 146],
+            "audio": "./audio/audio_六國論/para4_012.mp3"
+          },
+          {
+            "text": "為國者無使為積威之所劫哉！",
+            "translation": "治理國家的人不要讓自己被他國的積威所脅迫啊！",
+            "vocabIds": [152, 229, 230, 231, 152, 222, 39, 223, 224, 232],
+            "audio": "./audio/audio_六國論/para4_013.mp3"
+          }
+        ],
+        "implication": {
+          "summary": "作者抒發強烈感慨，提出如果六國能團結抗秦、重用人才，完全可以戰勝秦國，並告誡當權者不要被敵人的威勢嚇倒。",
+          "paraphrase": "換句話說：唉！要是他們能把割地賄賂秦國的錢和地，拿去封賞謀臣、禮遇人才，大家團結一致向西抗秦，那秦國人恐怕要嚇得飯都吃不下！可悲啊，有這麼好的形勢，卻因為長期害怕秦國的威勢，一天天割地，最終走向滅亡。所以說，治國的人千萬不能被敵人的威勢嚇倒啊！",
+          "grammar": {
+            "display": "📌 修辭手法分析（第四段）\n\n1️⃣ 感嘆\n• 「嗚呼！」、「悲夫！」：直接發出感嘆，表達作者強烈的情感，引發讀者共鳴。\n\n2️⃣ 對比\n• 「以賂秦之地，封天下之謀臣；以事秦之心，禮天下之奇才」與實際的「日削月割，以趨於亡」形成對比，凸顯決策失誤的可惜。\n\n3️⃣ 比喻\n• 「秦人食之不得下咽」：用秦人吃飯都嚥不下去的誇張說法，生動形象地描繪出如果六國團結，秦國將恐懼不安的狀態。",
+            "techniques": [
+              {
+                "type": "感嘆",
+                "example": "「嗚呼！」、「悲夫！」",
+                "effect": "直接發出強烈的感嘆，表達作者對六國滅亡的惋惜和對統治者昏庸的悲憤，能強烈感染讀者情緒。"
+              },
+              {
+                "type": "對比",
+                "example": "「以賂秦之地，封天下之謀臣；以事秦之心，禮天下之奇才」與「日削月割，以趨於亡」",
+                "effect": "將假設的正確做法與實際發生的錯誤後果進行對比，強烈凸顯了六國決策的失誤和可惜，深化了文章的諷刺意味。"
+              },
+              {
+                "type": "比喻",
+                "example": "「秦人食之不得下咽」",
+                "effect": "用誇張的比喻，形象生動地描繪出如果六國能團結抗秦，秦國將陷入極度恐懼的狀態，反襯出六國屈服於秦是多麼的愚蠢。"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "slices": [
+          {
+            "text": "夫六國與秦皆諸侯，",
+            "translation": "六國和秦國都是諸侯國，",
+            "vocabIds": [219, 1, 41, 28, 233, 48],
+            "audio": "./audio/audio_六國論/para5_001.mp3"
+          },
+          {
+            "text": "其勢弱於秦，",
+            "translation": "他們的勢力比秦國弱，",
+            "vocabIds": [45, 221, 234, 158, 28],
+            "audio": "./audio/audio_六國論/para5_002.mp3"
+          },
+          {
+            "text": "而猶有可以不賂而勝之之勢；",
+            "translation": "卻還有可以不靠賄賂而戰勝秦國的可能；",
+            "vocabIds": [43, 111, 65, 235, 16, 236, 43, 162, 39, 39, 221],
+            "audio": "./audio/audio_六國論/para5_003.mp3"
+          },
+          {
+            "text": "苟以天下之大，",
+            "translation": "如果憑藉著一統天下的巨大力量，",
+            "vocabIds": [237, 18, 204, 39, 35],
+            "audio": "./audio/audio_六國論/para5_004.mp3"
+          },
+          {
+            "text": "而從六國破亡之故事，",
+            "translation": "卻去重蹈六國滅亡的覆轍，",
+            "vocabIds": [43, 238, 1, 239, 39, 240],
+            "audio": "./audio/audio_六國論/para5_005.mp3"
+          },
+          {
+            "text": "是又在六國下矣！",
+            "translation": "這就又在六國之下了！",
+            "vocabIds": [241, 88, 9, 1, 216, 56],
+            "audio": "./audio/audio_六國論/para5_006.mp3"
+          }
+        ],
+        "implication": {
+          "summary": "結尾將歷史與現實聯繫起來，告誡北宋統治者，如果不吸取六國滅亡的教訓，繼續採取妥協退讓的政策，下場將比六國更可悲。",
+          "paraphrase": "換句話說：六國和秦國都是諸侯，他們雖然弱，但還有一線生機可以不靠賄賂打敗秦國。如今我們大宋擁有天下，比六國強大得多，如果還走六國的老路，用割地賠款來換取和平，那就比六國還要愚蠢可悲了！",
+          "grammar": {
+            "display": "📌 修辭手法分析（第五段）\n\n1️⃣ 對比\n• 「六國與秦皆諸侯」與「天下之大」：將六國的形勢與北宋「天下之大」的形勢進行對比，突出當今優勢之大。\n\n2️⃣ 反襯\n• 「而從六國破亡之故事，是又在六國下矣」：用六國的失敗來反襯和警示當代，如果重蹈覆轍，將比歷史上的失敗者更加不堪，極具諷刺和警示意味。",
+            "techniques": [
+              {
+                "type": "對比",
+                "example": "「六國與秦皆諸侯」與「苟以天下之大」",
+                "effect": "將六國僅為諸侯的實力與北宋擁有一統天下的巨大優勢進行對比，凸顯北宋如果仍選擇妥協是極其不智的行為。"
+              },
+              {
+                "type": "反襯",
+                "example": "「而從六國破亡之故事，是又在六國下矣」",
+                "effect": "用六國已經滅亡的可悲結局，來反襯和警示當代的統治者。如果重蹈六國的錯誤，其結果將比六國更不堪，極大地增強了文章的諷刺力度和告誡效果。"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "appreciation": {
+    "title": "文章賞析",
+    "content": [
+      {
+        "section": "【📝 寫作背景】",
+        "text": "北宋建國後，面對北方遼、西夏等少數民族政權的威脅，長期採取妥協退讓、輸幣納絹的政策以求苟安。蘇洵目睹國家積貧積弱，深感憂慮，因此借古諷今，通過論述六國賂秦而亡的歷史教訓，告誡北宋統治者不要重蹈覆轍。"
+      },
+      {
+        "section": "【📌 結構佈局】",
+        "text": "• <u>第一段</u>：開門見山，提出「弊在賂秦」的中心論點。\n• <u>第二段</u>：從「賂秦」一方論證，說明割地事秦只會助長敵人，加速滅亡。\n• <u>第三段</u>：從「不賂秦」一方論證，分析齊、燕、趙三國滅亡的原因，指出不團結、用人不當的危害。\n• <u>第四段</u>：總結歷史教訓，假設六國若能團結抗秦，結局將不同，並發出感慨。\n• <u>第五段</u>：由古及今，點明寫作主旨，告誡當權者。"
+      },
+      {
+        "section": "【✍️ 寫作技巧】",
+        "text": "• <u>論證嚴密，層層遞進</u>：文章圍繞中心論點，從正反兩方面、通過對比、假設等多種方式進行論證，邏輯清晰，說服力強。\n• <u>善用比喻，形象生動</u>：如「如棄草芥」、「抱薪救火」、「秦人食之不得下咽」等，將抽象道理具體化，增強文章的感染力。\n• <u>對比鮮明，觀點突出</u>：如賂秦者得暫時安寢與秦兵又至的對比；秦之所得與諸侯之所亡的對比；六國之勢與天下之大勢的對比，使觀點更加鮮明。\n• <u>語言鏗鏘，感情強烈</u>：文中大量運用感嘆詞（嗚呼、悲夫）、反問句，使文章充滿了強烈的感情色彩，具有很強的鼓動性。"
+      },
+      {
+        "section": "【💡 思想內涵】",
+        "text": "本文不僅是對歷史的總結，更是對現實政治的尖銳批判。其核心思想在於反對妥協投降，強調自強不息、團結禦侮的重要性，對後世有深刻的警示作用。"
+      }
+    ]
+  },
+  "keyPoints": {
+    "title": "課文重點",
+    "points": [
+      {
+        "phrase": "六國破滅，非兵不利，戰不善，弊在賂秦。",
+        "explanation": "文章的中心論點，開門見山地指出六國滅亡的根本原因在於賄賂秦國。"
+      },
+      {
+        "phrase": "以地事秦，猶抱薪救火，薪不盡，火不滅。",
+        "explanation": "引用古語作比喻，形象地說明了用割地的方式討好秦國，只會助長其貪慾，加速自身滅亡。"
+      },
+      {
+        "phrase": "刺客不行，良將猶在，則勝負之數，存亡之理，當與秦相較，或未易量。",
+        "explanation": "通過假設論證，說明如果六國當初能避免失誤（如燕丹行刺、趙王殺李牧），抗秦的結果尚未可知，反襯出滅亡的可惜。"
+      },
+      {
+        "phrase": "為國者無使為積威之所劫哉！",
+        "explanation": "作者對統治者的直接告誡，也是全文的點睛之筆，提醒當權者不要被敵人的威勢嚇倒而放棄抗爭。"
+      },
+      {
+        "phrase": "苟以天下之大，而從六國破亡之故事，是又在六國下矣！",
+        "explanation": "結尾將歷史與現實結合，警告北宋統治者，如果重蹈六國覆轍，將比六國更加可悲。"
+      }
+    ]
+  },
+  "examQuestions": {
+    "title": "簡答題",
+    "questions": [
+      {
+        "question": "蘇洵在《六國論》中提出的中心論點是什麼？他是如何論證這個觀點的？【中心論點·論證方法】",
+        "answer": "中心論點是「六國破滅，非兵不利，戰不善，弊在賂秦」。\n論證方法：\n1. 從「賂秦」的國家論證：通過數據對比（秦之所得與戰勝而得者，諸侯之所亡與戰敗而亡者），說明賂秦損失巨大；又用「抱薪救火」的比喻，論證割地只會助長秦國貪慾。\n2. 從「不賂秦」的國家論證：分析齊、燕、趙滅亡的原因，指出齊國「與嬴而不助五國」、燕趙「用武而不終」的失誤，從反面說明抗爭的重要性。\n3. 最後通過假設（向使三國各愛其地...）和感嘆，總結教訓，告誡當權者。"
+      },
+      {
+        "question": "文中引用了「以地事秦，猶抱薪救火，薪不盡，火不滅」這句古語，有什麼作用？【引用·比喻手法】",
+        "answer": "這句話的作用是：\n1. 作為比喻論據，形象生動地說明了割地賄賂秦國，不但不能解決問題，反而會助長敵人的貪慾，使自己陷入更深的危機。\n2. 引用古人的話，為自己的論點提供了權威的支持，增強了文章的說服力。"
+      },
+      {
+        "question": "作者在第四段中說「為國者無使為積威之所劫哉」，這句話的深層含義是什麼？【主旨理解·現實意義】",
+        "answer": "這句話的深層含義是告誡國家的統治者，面對強敵的威脅，不能被其長期的威勢所嚇倒，從而採取妥協投降的政策。作者藉此諷諭北宋統治者，不應對遼、西夏等政權的壓力屈服，而應自強不息，尋求制勝之道，否則就會像六國一樣走向滅亡。"
+      }
+    ]
+  },
+  "vocabulary": [
+    { "id": 1, "word": "六國", "meaning": "指戰國時期的齊、楚、燕、韓、趙、魏六國" },
+    { "id": 2, "word": "破滅", "meaning": "滅亡" },
+    { "id": 3, "word": "非", "meaning": "不是" },
+    { "id": 4, "word": "兵", "meaning": "武器" },
+    { "id": 5, "word": "不利", "meaning": "不鋒利" },
+    { "id": 6, "word": "戰", "meaning": "作戰、打仗" },
+    { "id": 7, "word": "不善", "meaning": "不好" },
+    { "id": 8, "word": "弊", "meaning": "弊病、禍害" },
+    { "id": 9, "word": "在", "meaning": "在於" },
+    { "id": 10, "word": "賂秦", "meaning": "賄賂秦國，指割地求和" },
+    { "id": 11, "word": "或", "meaning": "有人" },
+    { "id": 12, "word": "曰", "meaning": "說" },
+    { "id": 13, "word": "互喪", "meaning": "相繼滅亡" },
+    { "id": 14, "word": "率", "meaning": "全都、一概" },
+    { "id": 15, "word": "耶", "meaning": "嗎，疑問語氣詞" },
+    { "id": 16, "word": "不", "meaning": "不、沒有" },
+    { "id": 17, "word": "賂者", "meaning": "賄賂秦國的國家" },
+    { "id": 18, "word": "以", "meaning": "因為 / 用 / 憑藉（視語境而定）" },
+    { "id": 19, "word": "喪", "meaning": "滅亡、喪失" },
+    { "id": 20, "word": "蓋", "meaning": "承接上文，解釋原因，相當於「因為」" },
+    { "id": 21, "word": "失", "meaning": "失去" },
+    { "id": 22, "word": "強援", "meaning": "強大的援助" },
+    { "id": 23, "word": "不能", "meaning": "不能夠" },
+    { "id": 24, "word": "獨", "meaning": "獨自" },
+    { "id": 25, "word": "完", "meaning": "保全" },
+    { "id": 26, "word": "故", "meaning": "所以" },
+    { "id": 27, "word": "也", "meaning": "語氣詞，用於句尾，表判斷或肯定" },
+    { "id": 28, "word": "秦", "meaning": "秦國" },
+    { "id": 29, "word": "攻取", "meaning": "用攻戰奪取" },
+    { "id": 30, "word": "之外", "meaning": "以外" },
+    { "id": 31, "word": "小", "meaning": "小的（戰果）" },
+    { "id": 32, "word": "則", "meaning": "就" },
+    { "id": 33, "word": "獲", "meaning": "獲得" },
+    { "id": 34, "word": "邑", "meaning": "小鎮、縣" },
+    { "id": 35, "word": "大", "meaning": "大的（戰果）/ 巨大的" },
+    { "id": 36, "word": "得", "meaning": "得到 / 能夠" },
+    { "id": 37, "word": "城", "meaning": "城池" },
+    { "id": 38, "word": "較", "meaning": "比較" },
+    { "id": 39, "word": "之", "meaning": "的 / 它（視語境而定）" },
+    { "id": 40, "word": "所得", "meaning": "得到的東西，此指土地" },
+    { "id": 41, "word": "與", "meaning": "和、同 / 結交、親附" },
+    { "id": 42, "word": "戰勝", "meaning": "打勝仗" },
+    { "id": 43, "word": "而", "meaning": "卻 / 而且 / 就（視語境而定）" },
+    { "id": 44, "word": "得者", "meaning": "得到的部分" },
+    { "id": 45, "word": "其", "meaning": "它的 / 他們的" },
+    { "id": 46, "word": "實", "meaning": "實際數量" },
+    { "id": 47, "word": "百倍", "meaning": "上百倍，形容數量極大" },
+    { "id": 48, "word": "諸侯", "meaning": "指六國" },
+    { "id": 49, "word": "所亡", "meaning": "損失的土地" },
+    { "id": 50, "word": "戰敗", "meaning": "打敗仗" },
+    { "id": 51, "word": "亡者", "meaning": "損失的部分" },
+    { "id": 52, "word": "亦", "meaning": "也" },
+    { "id": 53, "word": "所大欲", "meaning": "最大的慾望" },
+    { "id": 54, "word": "所大患", "meaning": "最大的禍患" },
+    { "id": 55, "word": "固", "meaning": "本來" },
+    { "id": 56, "word": "矣", "meaning": "了，語氣詞" },
+    { "id": 57, "word": "思", "meaning": "想一想" },
+    { "id": 58, "word": "厥", "meaning": "其，他們的" },
+    { "id": 59, "word": "先", "meaning": "祖先" },
+    { "id": 60, "word": "祖父", "meaning": "祖輩父輩" },
+    { "id": 61, "word": "暴", "meaning": "曝露，讀音pù" },
+    { "id": 62, "word": "霜露", "meaning": "霜和露，形容創業艱辛" },
+    { "id": 63, "word": "斬", "meaning": "砍斷" },
+    { "id": 64, "word": "荆棘", "meaning": "帶刺的灌木，比喻艱難險阻" },
+    { "id": 65, "word": "有", "meaning": "擁有" },
+    { "id": 66, "word": "尺寸", "meaning": "形容極少" },
+    { "id": 67, "word": "地", "meaning": "土地" },
+    { "id": 68, "word": "子孫", "meaning": "後代" },
+    { "id": 69, "word": "視", "meaning": "看待" },
+    { "id": 70, "word": "不甚", "meaning": "不怎麼" },
+    { "id": 71, "word": "惜", "meaning": "愛惜" },
+    { "id": 72, "word": "舉", "meaning": "拿" },
+    { "id": 73, "word": "予人", "meaning": "給人" },
+    { "id": 74, "word": "如", "meaning": "好像" },
+    { "id": 75, "word": "棄", "meaning": "丟棄" },
+    { "id": 76, "word": "草芥", "meaning": "小草，比喻微不足道的東西" },
+    { "id": 77, "word": "今日", "meaning": "今天" },
+    { "id": 78, "word": "割", "meaning": "割讓" },
+    { "id": 79, "word": "五", "meaning": "五" },
+    { "id": 80, "word": "明日", "meaning": "第二天" },
+    { "id": 81, "word": "十", "meaning": "十" },
+    { "id": 82, "word": "然後", "meaning": "這樣之後" },
+    { "id": 83, "word": "一夕", "meaning": "一夜" },
+    { "id": 84, "word": "安寢", "meaning": "安穩地睡覺" },
+    { "id": 85, "word": "起", "meaning": "起床" },
+    { "id": 86, "word": "視", "meaning": "看" },
+    { "id": 87, "word": "四境", "meaning": "四邊的邊境" },
+    { "id": 88, "word": "又", "meaning": "又、再" },
+    { "id": 89, "word": "至", "meaning": "到" },
+    { "id": 90, "word": "然則", "meaning": "既然如此，那麼" },
+    { "id": 91, "word": "有限", "meaning": "有盡頭" },
+    { "id": 92, "word": "暴秦", "meaning": "強暴的秦國" },
+    { "id": 93, "word": "欲", "meaning": "慾望" },
+    { "id": 94, "word": "無厭", "meaning": "不滿足，厭通「饜」" },
+    { "id": 95, "word": "奉", "meaning": "獻、送" },
+    { "id": 96, "word": "彌繁", "meaning": "越多" },
+    { "id": 97, "word": "侵", "meaning": "侵犯" },
+    { "id": 98, "word": "愈急", "meaning": "越厲害" },
+    { "id": 99, "word": "強弱", "meaning": "強和弱" },
+    { "id": 100, "word": "勝負", "meaning": "勝和敗" },
+    { "id": 101, "word": "已", "meaning": "已經" },
+    { "id": 102, "word": "判", "meaning": "決定、分明" },
+    { "id": 103, "word": "至於", "meaning": "以至於、到了" },
+    { "id": 104, "word": "顛覆", "meaning": "滅亡" },
+    { "id": 105, "word": "理", "meaning": "道理" },
+    { "id": 106, "word": "宜", "meaning": "應該" },
+    { "id": 107, "word": "然", "meaning": "這樣" },
+    { "id": 108, "word": "古人", "meaning": "古代的人" },
+    { "id": 109, "word": "云", "meaning": "說" },
+    { "id": 110, "word": "事", "meaning": "侍奉" },
+    { "id": 111, "word": "猶", "meaning": "如同、好像 / 還、仍然" },
+    { "id": 112, "word": "抱", "meaning": "抱著" },
+    { "id": 113, "word": "薪", "meaning": "柴草" },
+    { "id": 114, "word": "救火", "meaning": "滅火" },
+    { "id": 115, "word": "盡", "meaning": "完、燒盡" },
+    { "id": 116, "word": "火", "meaning": "火" },
+    { "id": 117, "word": "滅", "meaning": "熄滅" },
+    { "id": 118, "word": "此", "meaning": "這" },
+    { "id": 119, "word": "言", "meaning": "話" },
+    { "id": 120, "word": "齊人", "meaning": "齊國人，此指齊國" },
+    { "id": 121, "word": "未嘗", "meaning": "不曾" },
+    { "id": 122, "word": "終", "meaning": "最終" },
+    { "id": 123, "word": "繼", "meaning": "跟著、隨後" },
+    { "id": 124, "word": "五國", "meaning": "指韓、魏、楚、燕、趙五國" },
+    { "id": 125, "word": "遷滅", "meaning": "滅亡。遷，改變" },
+    { "id": 126, "word": "何", "meaning": "什麼、為什麼" },
+    { "id": 127, "word": "哉", "meaning": "呢，疑問語氣詞" },
+    { "id": 128, "word": "嬴", "meaning": "秦王的姓，此指秦國" },
+    { "id": 129, "word": "助", "meaning": "幫助" },
+    { "id": 130, "word": "既", "meaning": "已經" },
+    { "id": 131, "word": "齊", "meaning": "齊國" },
+    { "id": 132, "word": "免", "meaning": "避免" },
+    { "id": 133, "word": "燕", "meaning": "燕國" },
+    { "id": 134, "word": "趙", "meaning": "趙國" },
+    { "id": 135, "word": "君", "meaning": "君主" },
+    { "id": 136, "word": "始", "meaning": "起初、才" },
+    { "id": 137, "word": "遠略", "meaning": "長遠的謀略" },
+    { "id": 138, "word": "能", "meaning": "能夠" },
+    { "id": 139, "word": "守", "meaning": "守住" },
+    { "id": 140, "word": "土", "meaning": "國土" },
+    { "id": 141, "word": "義", "meaning": "堅持道義" },
+    { "id": 142, "word": "是故", "meaning": "因此" },
+    { "id": 143, "word": "雖", "meaning": "雖然" },
+    { "id": 144, "word": "小國", "meaning": "小的國家" },
+    { "id": 145, "word": "後", "meaning": "後來 / 之後" },
+    { "id": 146, "word": "亡", "meaning": "滅亡" },
+    { "id": 147, "word": "斯", "meaning": "這" },
+    { "id": 148, "word": "用兵", "meaning": "使用武力抗爭" },
+    { "id": 149, "word": "效", "meaning": "效果" },
+    { "id": 150, "word": "丹", "meaning": "燕太子丹" },
+    { "id": 151, "word": "荊卿", "meaning": "荊軻，卿是尊稱" },
+    { "id": 152, "word": "為", "meaning": "作為 / 被 / 治理" },
+    { "id": 153, "word": "計", "meaning": "計策" },
+    { "id": 154, "word": "速", "meaning": "招致" },
+    { "id": 155, "word": "禍", "meaning": "禍患" },
+    { "id": 156, "word": "焉", "meaning": "了，語氣詞" },
+    { "id": 157, "word": "嘗", "meaning": "曾經" },
+    { "id": 158, "word": "于", "meaning": "和、與 / 到" },
+    { "id": 159, "word": "二", "meaning": "兩次" },
+    { "id": 160, "word": "敗", "meaning": "失敗" },
+    { "id": 161, "word": "三", "meaning": "三次" },
+    { "id": 162, "word": "勝", "meaning": "勝利" },
+    { "id": 163, "word": "擊", "meaning": "攻打" },
+    { "id": 164, "word": "者", "meaning": "……的時候" },
+    { "id": 165, "word": "再", "meaning": "兩次" },
+    { "id": 166, "word": "李牧", "meaning": "趙國名將" },
+    { "id": 167, "word": "連", "meaning": "接連" },
+    { "id": 168, "word": "卻", "meaning": "打退" },
+    { "id": 169, "word": "洎", "meaning": "等到" },
+    { "id": 170, "word": "讒", "meaning": "讒言" },
+    { "id": 171, "word": "誅", "meaning": "被殺" },
+    { "id": 172, "word": "邯鄲", "meaning": "趙國都城" },
+    { "id": 173, "word": "郡", "meaning": "秦國的行政區劃" },
+    { "id": 174, "word": "惜", "meaning": "可惜" },
+    { "id": 175, "word": "用武", "meaning": "使用武力" },
+    { "id": 176, "word": "且", "meaning": "再說、而且" },
+    { "id": 177, "word": "處", "meaning": "處在" },
+    { "id": 178, "word": "革滅", "meaning": "消滅。革，改變" },
+    { "id": 179, "word": "殆盡", "meaning": "差不多完了" },
+    { "id": 180, "word": "際", "meaning": "時候" },
+    { "id": 181, "word": "可謂", "meaning": "可以說是" },
+    { "id": 182, "word": "智力", "meaning": "智謀和力量" },
+    { "id": 183, "word": "孤危", "meaning": "孤立無援，處境危險" },
+    { "id": 184, "word": "誠", "meaning": "實在、確實" },
+    { "id": 185, "word": "得已", "meaning": "得已，能夠停止，通常與「不」連用，表示不得已" },
+    { "id": 186, "word": "向使", "meaning": "當初假如" },
+    { "id": 187, "word": "三國", "meaning": "指韓、魏、楚三個賄賂秦國的國家" },
+    { "id": 188, "word": "各", "meaning": "各自" },
+    { "id": 189, "word": "愛", "meaning": "愛惜" },
+    { "id": 190, "word": "勿", "meaning": "不要" },
+    { "id": 191, "word": "附", "meaning": "依附、親附" },
+    { "id": 192, "word": "刺客", "meaning": "指荊軻" },
+    { "id": 193, "word": "行", "meaning": "前往 / 執行" },
+    { "id": 194, "word": "良將", "meaning": "好的將領，指李牧" },
+    { "id": 195, "word": "數", "meaning": "命運" },
+    { "id": 196, "word": "存亡", "meaning": "生存或滅亡" },
+    { "id": 197, "word": "當", "meaning": "應當" },
+    { "id": 198, "word": "相較", "meaning": "互相較量" },
+    { "id": 199, "word": "未", "meaning": "沒有" },
+    { "id": 200, "word": "易", "meaning": "容易" },
+    { "id": 201, "word": "量", "meaning": "估量" },
+    { "id": 202, "word": "嗚呼", "meaning": "嘆詞，相當於「唉」" },
+    { "id": 203, "word": "封", "meaning": "封賞" },
+    { "id": 204, "word": "天下", "meaning": "全天下" },
+    { "id": 205, "word": "謀臣", "meaning": "善於謀劃的大臣" },
+    { "id": 206, "word": "心", "meaning": "心意" },
+    { "id": 207, "word": "禮", "meaning": "禮遇、以禮相待" },
+    { "id": 208, "word": "奇才", "meaning": "特出的人才" },
+    { "id": 209, "word": "并力", "meaning": "合力" },
+    { "id": 210, "word": "西向", "meaning": "向西，指對付西邊的秦國" },
+    { "id": 211, "word": "吾", "meaning": "我" },
+    { "id": 212, "word": "恐", "meaning": "恐怕" },
+    { "id": 213, "word": "秦人", "meaning": "秦國人" },
+    { "id": 214, "word": "食", "meaning": "吃飯" },
+    { "id": 215, "word": "不得", "meaning": "不能夠" },
+    { "id": 216, "word": "下", "meaning": "嚥下 / 以下、比不上" },
+    { "id": 217, "word": "咽", "meaning": "咽喉" },
+    { "id": 218, "word": "悲", "meaning": "悲傷、可悲" },
+    { "id": 219, "word": "夫", "meaning": "語氣詞，用於句首 / 用於句尾表感嘆" },
+    { "id": 220, "word": "如此", "meaning": "這樣" },
+    { "id": 221, "word": "勢", "meaning": "形勢、態勢" },
+    { "id": 222, "word": "積威", "meaning": "長久積累起來的威勢" },
+    { "id": 223, "word": "所", "meaning": "被，與「為」連用，表被動" },
+    { "id": 224, "word": "劫", "meaning": "脅迫、挾制" },
+    { "id": 225, "word": "日", "meaning": "每日" },
+    { "id": 226, "word": "削", "meaning": "削減" },
+    { "id": 227, "word": "月", "meaning": "每月" },
+    { "id": 228, "word": "趨", "meaning": "走向" },
+    { "id": 229, "word": "國者", "meaning": "治理國家的人" },
+    { "id": 230, "word": "無", "meaning": "不要" },
+    { "id": 231, "word": "使", "meaning": "讓" },
+    { "id": 232, "word": "哉", "meaning": "啊，感嘆語氣詞" },
+    { "id": 233, "word": "皆", "meaning": "都是" },
+    { "id": 234, "word": "弱", "meaning": "弱小" },
+    { "id": 235, "word": "可以", "meaning": "可以" },
+    { "id": 236, "word": "賂", "meaning": "賄賂" },
+    { "id": 237, "word": "苟", "meaning": "如果" },
+    { "id": 238, "word": "從", "meaning": "跟隨，此指重蹈" },
+    { "id": 239, "word": "破亡", "meaning": "破敗滅亡" },
+    { "id": 240, "word": "故事", "meaning": "舊事、先例" },
+    { "id": 241, "word": "是", "meaning": "這" }
+  ]
+}

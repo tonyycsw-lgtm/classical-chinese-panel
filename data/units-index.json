@@ -8,5 +8,30 @@
     "unitId": "lunyu_xueer",
     "unitName": "論語·學而篇",
     "dataUrl": "./data/lunyu_xueer.json"
+  },
+  {
+    "unitId": "六國論",
+    "unitName": "六國論",
+    "dataUrl": "./data/六國論.json"
+  },
+  {
+    "unitId": "出師表",
+    "unitName": "《出師表》諸葛亮",
+    "dataUrl": "./data/出師表.json"
+  },
+  {
+    "unitId": "勸學",
+    "unitName": "勸學",
+    "dataUrl": "./data/勸學.json"
+  },
+  {
+    "unitId": "岳陽樓記",
+    "unitName": "《岳陽樓記》范仲淹",
+    "dataUrl": "./data/岳陽樓記.json"
+  },
+  {
+    "unitId": "師說",
+    "unitName": "《師說》韓愈",
+    "dataUrl": "./data/師說.json"
   }
 ]
