@@ -1,0 +1,24 @@
+{
+  "unitId": "demo",
+  "unitName": "示範篇章",
+  "article": {
+    "title": "示範篇章",
+    "paragraphs": [
+      {
+        "slices": [
+          {
+            "text": "這是一個示範篇章。",
+            "translation": "這是一個示範篇章的翻譯。",
+            "audio": "",
+            "vocabIds": []
+          }
+        ],
+        "implication": {
+          "summary": "這是本段主旨。",
+          "paraphrase": "這是換句話說的內容。"
+        }
+      }
+    ]
+  },
+  "vocabulary": []
+}

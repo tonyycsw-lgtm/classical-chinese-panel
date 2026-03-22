@@ -1,0 +1,129 @@
+{
+  "unitId": "lunyu_xueer",
+  "unitName": "論語·學而篇",
+  "article": {
+    "title": "論語·學而篇",
+    "paragraphs": [
+      {
+        "slices": [
+          {
+            "text": "子曰：「學而時習之，不亦說乎？",
+            "translation": "孔子說：「學習並且時常溫習，不也是很愉快嗎？",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_001.mp3",
+            "vocabIds": [1, 2]
+          },
+          {
+            "text": "有朋自遠方來，不亦樂乎？",
+            "translation": "有志同道合的朋友從遠方來，不也是很快樂嗎？",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_002.mp3",
+            "vocabIds": [3, 4]
+          },
+          {
+            "text": "人不知而不慍，不亦君子乎？」",
+            "translation": "別人不了解我，我卻不怨恨，不也是君子嗎？」",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_003.mp3",
+            "vocabIds": [5, 6]
+          }
+        ],
+        "implication": {
+          "summary": "孔子提出三件人生樂事：學習之樂、交友之樂、君子之樂。",
+          "paraphrase": "學習並經常複習是快樂的；有朋友遠道而來是快樂的；即使不被人理解也不生氣，這才是君子的修養。"
+        }
+      },
+      {
+        "slices": [
+          {
+            "text": "曾子曰：「吾日三省吾身：",
+            "translation": "曾子說：「我每天多次反省自己：",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_004.mp3",
+            "vocabIds": [7, 8]
+          },
+          {
+            "text": "為人謀而不忠乎？與朋友交而不信乎？",
+            "translation": "替別人辦事是否盡心竭力？與朋友交往是否誠實守信？",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_005.mp3",
+            "vocabIds": [9, 10]
+          },
+          {
+            "text": "傳不習乎？」",
+            "translation": "老師傳授的知識是否溫習了？」",
+            "audio": "/classical-chinese-panel/audio/lunyu_xueer/sentence_006.mp3",
+            "vocabIds": [11]
+          }
+        ],
+        "implication": {
+          "summary": "曾子強調每日自我反省的重要性。",
+          "paraphrase": "每天都要多次反省：為人謀事是否盡忠？與朋友交往是否守信？所學知識是否複習？"
+        }
+      }
+    ]
+  },
+  "vocabulary": [
+    {
+      "id": 1,
+      "word": "子",
+      "meaning": "古代對男子的尊稱，此指孔子",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_001.mp3"
+    },
+    {
+      "id": 2,
+      "word": "曰",
+      "meaning": "說",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_002.mp3"
+    },
+    {
+      "id": 3,
+      "word": "朋",
+      "meaning": "志同道合的朋友",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_003.mp3"
+    },
+    {
+      "id": 4,
+      "word": "樂",
+      "meaning": "快樂、愉悅",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_004.mp3"
+    },
+    {
+      "id": 5,
+      "word": "慍",
+      "meaning": "怨恨、生氣",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_005.mp3"
+    },
+    {
+      "id": 6,
+      "word": "君子",
+      "meaning": "品德高尚的人",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_006.mp3"
+    },
+    {
+      "id": 7,
+      "word": "曾子",
+      "meaning": "孔子的學生，名參",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_007.mp3"
+    },
+    {
+      "id": 8,
+      "word": "省",
+      "meaning": "反省、檢查",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_008.mp3"
+    },
+    {
+      "id": 9,
+      "word": "忠",
+      "meaning": "盡心竭力",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_009.mp3"
+    },
+    {
+      "id": 10,
+      "word": "信",
+      "meaning": "誠實守信",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_010.mp3"
+    },
+    {
+      "id": 11,
+      "word": "傳",
+      "meaning": "老師傳授的知識",
+      "audio": "/classical-chinese-panel/audio/lunyu_xueer/word_011.mp3"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登入 · 文言文學習平台</title>
+  <base href="/classical-chinese-panel/">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 樣式與英語平台 login.html 完全相同 */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #f3f4f6 0%, #e5e7eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-container {
+      background: white;
+      border-radius: 32px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+    .logo { font-size: 48px; color: #4f46e5; margin-bottom: 20px; }
+    h1 { font-size: 28px; color: #1f2937; margin-bottom: 8px; }
+    .subtitle { color: #6b7280; margin-bottom: 32px; font-size: 14px; }
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border-radius: 40px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-google {
+      background: white;
+      border: 1px solid #e5e7eb;
+      color: #1f2937;
+      margin-bottom: 16px;
+    }
+    .btn-google:hover {
+      border-color: #4f46e5;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(79,70,229,0.15);
+    }
+    .btn-google i { color: #4285f4; font-size: 20px; }
+    .btn-email {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #374151;
+    }
+    .btn-email:hover { background: #e5e7eb; transform: translateY(-2px); }
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 24px 0;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .divider::before { margin-right: 16px; }
+    .divider::after { margin-left: 16px; }
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .overlay-content {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .overlay-content h3 { font-size: 20px; color: #1f2937; margin-bottom: 8px; }
+    .hint-text { color: #6b7280; font-size: 13px; margin-bottom: 20px; }
+    .overlay-content input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e5e7eb;
+      border-radius: 40px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+    .overlay-content input:focus { border-color: #4f46e5; }
+    .domain-note {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      background: #4f46e5;
+      color: white;
+      width: 100%;
+      padding: 14px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .btn-primary:hover { background: #4338ca; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid #e5e7eb;
+      color: #6b7280;
+      width: 100%;
+      padding: 14px;
+      border-radius: 40px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .message {
+      padding: 12px;
+      border-radius: 40px;
+      font-size: 13px;
+      margin-top: 16px;
+      display: none;
+    }
+    .message.success { background: #dcfce7; color: #059669; display: block; }
+    .message.error { background: #fee2e2; color: #dc2626; display: block; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="logo"><i class="fas fa-scroll"></i></div>
+    <h1>文言文學習平台</h1>
+    <p class="subtitle">登入以開始學習</p>
+    <button class="btn btn-google" id="googleLoginBtn">
+      <i class="fab fa-google"></i> 使用 Google 帳號登入
+    </button>
+    <div class="divider">或</div>
+    <button class="btn btn-email" id="emailLoginBtn">
+      <i class="fas fa-envelope"></i> 使用 Email 登入
+    </button>
+    <p style="font-size: 11px; color: #9ca3af; margin-top: 12px;">
+      <i class="fas fa-graduation-cap"></i> 限 @gmail.com 帳號（測試用）
+    </p>
+  </div>
+
+  <div class="overlay" id="emailOverlay">
+    <div class="overlay-content">
+      <i class="fas fa-envelope" style="font-size: 40px; color: #4f46e5; margin-bottom: 16px;"></i>
+      <h3>Email 登入</h3>
+      <div class="hint-text">輸入你的 Email，我們會寄送登入連結</div>
+      <input type="email" id="emailInput" placeholder="yourname@gmail.com">
+      <div class="domain-note">
+        <i class="fas fa-info-circle"></i> 目前僅支援 @gmail.com 帳號測試
+      </div>
+      <button class="btn-primary" id="sendLinkBtn">
+        <i class="fas fa-paper-plane"></i> 發送登入連結
+      </button>
+      <button class="btn-secondary" id="cancelBtn">取消</button>
+      <div class="message" id="emailMessage"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
+    import { 
+      getAuth, GoogleAuthProvider, signInWithPopup,
+      sendSignInLinkToEmail, onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+    import { 
+      getFirestore, doc, setDoc, getDoc, updateDoc, increment 
+    } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
+
+    // Firebase 設定
+  const firebaseConfig = {
+    apiKey: "AIzaSyAWlA_w8kDp3u2s38peh3svIZVyY78ZwX0",
+    authDomain: "classical-chinese-panel.firebaseapp.com",
+    projectId: "classical-chinese-panel",
+    storageBucket: "classical-chinese-panel.firebasestorage.app",
+    messagingSenderId: "310386842914",
+    appId: "1:310386842914:web:9712565f4fee6c900b597b"
+  };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const actionCodeSettings = {
+      url: window.location.origin + '/classical-chinese-panel/finishSignUp.html',
+      handleCodeInApp: true,
+    };
+
+    function isAllowedEmail(email) {
+      if (!email) return false;
+      const domain = email.split('@')[1]?.toLowerCase();
+      return domain === 'gmail.com'; // 測試用白名單
+    }
+
+    async function sendEmailLink(email) {
+      try {
+        await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+        window.localStorage.setItem('emailForSignIn', email);
+        return { success: true };
+      } catch (error) {
+        let errorMsg = '寄信失敗，請稍後再試';
+        if (error.code === 'auth/invalid-email') errorMsg = 'Email 格式不正確';
+        else if (error.code === 'auth/too-many-requests') errorMsg = '嘗試次數過多，請稍後再試';
+        return { success: false, error: errorMsg };
+      }
+    }
+
+    async function handleUserData(user) {
+      const userRef = doc(db, 'users', user.uid);
+      const userSnap = await getDoc(userRef);
+      const displayName = user.displayName || user.email || '會員';
+      const now = new Date().toISOString();
+      const TRIAL_DAYS = 7;
+
+      if (!userSnap.exists()) {
+        const trialEndDate = new Date();
+        trialEndDate.setDate(trialEndDate.getDate() + TRIAL_DAYS);
+        await setDoc(userRef, {
+          email: user.email,
+          displayName,
+          photoURL: user.photoURL || null,
+          phoneNumber: '',
+          role: 'user',
+          premium: false,
+          plan: 'free',
+          trialEndAt: trialEndDate.toISOString(),
+          loginCount: 1,
+          readingProgress: {},
+          createdAt: now,
+          lastLoginAt: now,
+          updatedAt: now
+        });
+      } else {
+        await updateDoc(userRef, {
+          lastLoginAt: now,
+          loginCount: increment(1),
+          updatedAt: now
+        });
+      }
+    }
+
+    // Google 登入
+    document.getElementById('googleLoginBtn').addEventListener('click', async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        const result = await signInWithPopup(auth, provider);
+        await handleUserData(result.user);
+        window.location.href = '/classical-chinese-panel/index.html';
+      } catch (error) {
+        alert('登入失敗：' + error.message);
+      }
+    });
+
+    // Email 登入 UI 控制
+    const overlay = document.getElementById('emailOverlay');
+    document.getElementById('emailLoginBtn').addEventListener('click', () => {
+      overlay.style.display = 'flex';
+    });
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      overlay.style.display = 'none';
+    });
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.style.display = 'none';
+    });
+
+    document.getElementById('sendLinkBtn').addEventListener('click', async () => {
+      const email = document.getElementById('emailInput').value.trim();
+      const messageEl = document.getElementById('emailMessage');
+      if (!email || !email.includes('@')) {
+        messageEl.textContent = '請輸入有效的 Email';
+        messageEl.className = 'message error';
+        return;
+      }
+      if (!isAllowedEmail(email)) {
+        messageEl.textContent = '此 Email 不屬於允許的網域，請用 Google 登入';
+        messageEl.className = 'message error';
+        return;
+      }
+      const result = await sendEmailLink(email);
+      if (result.success) {
+        messageEl.textContent = '✅ 登入連結已寄出！請檢查信箱';
+        messageEl.className = 'message success';
+        setTimeout(() => overlay.style.display = 'none', 3000);
+      } else {
+        messageEl.textContent = result.error;
+        messageEl.className = 'message error';
+      }
+    });
+
+    // 檢查是否已登入，避免重複跳轉
+    onAuthStateChanged(auth, (user) => {
+      if (user && window.location.pathname.includes('login.html')) {
+        window.location.href = '/classical-chinese-panel/index.html';
+      }
+    });
+  </script>
+</body>
+</html>
