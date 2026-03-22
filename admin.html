@@ -739,9 +739,10 @@
     // ============================================
     // Firebase 初始化
     // ============================================
-    import { initializeApp } from 'firebase/app';
-    import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-    import { getFirestore, collection, getCountFromServer, doc, getDoc, updateDoc, query, orderBy, limit, where, startAfter } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getFirestore, collection, getDocs, getCountFromServer, doc, getDoc, updateDoc, query, orderBy, limit, where, startAfter } from 'firebase/firestore';
+import { getFunctions, httpsCallable } from 'firebase/functions';
     
     // Firebase 專案設定
   const firebaseConfig = {
